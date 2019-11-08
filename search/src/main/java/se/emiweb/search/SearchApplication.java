@@ -10,6 +10,7 @@ public class SearchApplication {
 	public static void main(String[] args) {
 		System.out.println("Hello World! :D");
 		SpringApplication.run(SearchApplication.class, args);
+		//you are a cutiepie
 	}
 
 }
