@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+   <link rel="stylesheet" href="styles.css">
+   <link rel="shortcut icon" href="emiweb.ico">
+   <script src="script.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Raleway:600&display=swap" rel="stylesheet">
+  <title>EmiWeb</title>
+</head>
+<body>
+
+<div class ="container">
+    <div class ="header">
+      <h1> EmiWeb </h1>
+    </div>
+    <div class ="content">
+        <h2>Sök i alla arkiv</h2>
+      <div class="allSearchForm">
+        <form>
+            <input type ="text" placeholder="Förnamn" name ="firstname">
+            <select>
+                <option value="volvo">Innehåller</option>
+                <option value="saab">Börjar med</option>
+                <option value="mercedes">Slutar med</option>
+                <option value="audi">Exakt</option>
+                <option value="audi">Soundex</option>
+              </select> <br>
+            <input type ="text" placeholder="Efternamn" name ="lastname">
+            <select>
+                <option value="volvo">Innehåller</option>
+                <option value="saab">Börjar med</option>
+                <option value="mercedes">Slutar med</option>
+                <option value="audi">Exakt</option>
+                <option value="audi">Soundex</option>
+              </select> <br>
+            <input type ="text" placeholder="Född år" name ="bornyear">
+            <select>
+                <option value="volvo">Innehåller</option>
+                <option value="saab">Börjar med</option>
+                <option value="mercedes">Slutar med</option>
+                <option value="audi">Exakt</option>
+                <option value="audi">Soundex</option>
+              </select> <br>
+            <input type ="text" placeholder="Född församling" name ="bornyear">
+            <select>
+                <option value="volvo">Innehåller</option>
+                <option value="saab">Börjar med</option>
+                <option value="mercedes">Slutar med</option>
+                <option value="audi">Exakt</option>
+                <option value="audi">Soundex</option>
+              </select> <br>
+        </form>
+        <button class="button buttonSearch"> Sök </button>
+        <button class="button buttonClear"> Rensa </button>
+      </div>
+        <h2>Gå direkt till ett specifikt arkiv</h2>
+      <div class="specficSearch">
+        <button class="button buttonArchive" onclick="showListFunction('showNews')">NYHETER</button> <br>
+          <ul id= "showNews">
+            <li>Svenskamerikanska kyrkoarkivet, ca 560.000 poster</li>
+            <li>New Yorks passagerarlistor över skandinaver, ca ca 1.100.000 poster</li>
+          </ul>
+        <button class="button buttonArchive" onclick="showListFunction('showMigrationsregister')">Migrationsregister</button> <br>
+        <ul id = "showMigrationsregister">
+          <li><h5>Sverige</li></h5>
+          <li>Passagerarlistor för svenska hamnar, ca 1.400.000 poster <a href = "infoArchive.html#InfoPassSweHarbor">(om arkivet)</a></li>
+          <li>Emigranter i svenska kyrkböcker, ca 1.300.000 poster <a href = "infoArchive.html#InfoEmiSweChurch">(om arkivet)</a></li>
+          <li>Immigranter i svenska kyrkböcker, ca 300.000 poster (om arkivet)</li>
+          <li>Svenskar över Kristiania(Oslo), ca 18.000 poster (om arkivet)</li>
+          <li>SCB Emigranter, ca 1.500.000 poster (om arkivet)</li>
+          <li>SCB Immigranter, ca 500.000 poster (om arkivet)</li>
+          <li><h5>Norge</li></h5>
+          <li>Emigranter i norska kyrkböcker, ca 100.000 poster</li>
+          <li>Immigranter i norska kyrkböcker, ca 4.500 poster (om arkivet)</li>
+          <li><h5>Danmark</li></h5>
+          <li>Den danska emigrantdatabasen, ca 400.000 poster (om arkivet)</li>
+          <li><h5>Åland</li></h5>
+          <li>Den åländska emigrantdatabasen, ca 1.900 poster (om arkivet)</li>
+          <li><h5>Skandinavien</li></h5>
+          <li>Mormonska passagerarlistor, Skandinavien, ca 27.000 poster(om arkivet)</li>
+        </ul>
+        <button class="button buttonArchive" onclick="showListFunction('showPaperDeath')">Tidningsnotiser/Dödsnotiser</button>  <br>
+        <ul id ="showPaperDeath">
+          <li>Dödsnotiser från Svenskamerikanska tidningar, ca 90.000 poster varav ca 4.600 skannade original (om arkivet)</li>
+          <li>Tidningsnotiser från Värmländska tidningar, ca 4.300 poster (om arkivet)</li>
+          <li>Riksföreningen Sverigekontakts personhistoriska arkiv, ca 5.500 poster (om arkivet)</li>
+        </ul>
+        <button class="button buttonArchive" onclick="showListFunction('showBooks')">Böcker</button> <br>
+        <ul id ="showBooks">
+          <li>Svenskamerikanskt bokindex, ca 20.000 poster (om arkivet)</li>
+        </ul>
+        <button class="button buttonArchive"onclick="showListFunction('showPhoto')">Fotosamlingar</button> <br>
+        <ul id ="showPhoto">
+          <li>Swenson Centers fotosamling, ca 1.500 poster (om arkivet)</li>
+          <li>Sverige Amerika Centrets emigrantfotosamling, ca 1.700 poster (om arkivet)</li>
+        </ul>
+        <button class="button buttonArchive"onclick="showListFunction('showMembers')">Medlemsregister</button> <br>
+        <ul id ="showMembers">
+          <li>Svenskamerikanska föreningsmedlemmar, ca 31.000 poster (om arkivet)</li>
+        </ul>
+        <button class="button buttonArchive"onclick="showListFunction('showExtra')">Övrigt</button> <br>
+        <ul id ="showExtra">
+          <li>Dalslänningar födda i Amerika, ca 4.500 poster (om arkivet)</li>
+          <li>Northern Pacific Railway Company, ca 3.100 filer (om arkivet)</li>
+          <li>Beväringens Levnadsbeskrivningar, ca 5.000 poster (om arkivet)</li>
+          <li>Arbetstillstånd Danmark, ca 100.000 poster</li>
+          <li>Svenskar i Alaska, ca 4.000 poster (om arkivet)</li>
+          <li>Svenskamerikanska jubileumsskrifter, ca 200 poster (om arkivet)</li>
+        </ul>
+        <br>
+      </div>
+
+  </div>
+</div>
+
+  <footer class ="myFooter">
+    <h6> © EmiWeb 2007-2017 </h6>
+  </footer>
+
+</body>
+
+</html>
