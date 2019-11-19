@@ -47,6 +47,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>com.eduworks</groupId>
+			<artifactId>org.json-ld</artifactId>
+			<version>2.11.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
