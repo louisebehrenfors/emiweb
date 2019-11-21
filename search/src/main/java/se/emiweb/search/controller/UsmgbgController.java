@@ -5,6 +5,7 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +28,17 @@ public class UsmgbgController {
 				.setPostFilter(QueryBuilders.matchAllQuery())
 				.get();
 		
-        return search_response;
+		return search_response;
 	} 
+	
+	@GetMapping("/{name}")
+	public SearchResponse searchName(@PathVariable("name") String name) {
+		
+		SearchResponse search_response = client.prepareSearch("usmgbg_index")
+		.setPostFilter(QueryBuilders.matchQuery("Name", name))
+		.get();
+		
+
+		return search_response;
+	}
 }
