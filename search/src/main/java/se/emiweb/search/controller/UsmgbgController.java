@@ -67,7 +67,6 @@ public class UsmgbgController {
 	@GetMapping("/byfuzzyname/{name}")
 	public SearchResponse findByFuzzyName(@PathVariable String name) {
 		
-		
 		QueryBuilder query = QueryBuilders.matchQuery("Name", name)
 				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.AND)
 				.fuzziness("AUTO");
@@ -79,6 +78,7 @@ public class UsmgbgController {
 		        .get();	
 		
 		return response;
+
 	}
 	
 	@GetMapping("/byid/{id}")
@@ -95,16 +95,18 @@ public class UsmgbgController {
 	}
 	
 	
-	//Id should notbe fuzzy. Name and proffesion shoould be fuzzy
 	@GetMapping("/allfields/{text}")
 	public SearchResponse findByAllField(@PathVariable String text) {
-
-		MultiMatchQueryBuilder query = QueryBuilders.multiMatchQuery(
-				text
-				, "ID", "Name", "Profession", "Country", "FileName")
-				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.AND);
-
-
+		
+		
+		QueryBuilder query = QueryBuilders.boolQuery()
+				.should(QueryBuilders.queryStringQuery(text)
+						.lenient(true)
+						.field("ID")
+						.field("Name")
+						.field("Profession")
+						.field("Country")
+						).should(QueryBuilders.queryStringQuery("*"+text+"*"));
 		
 		SearchResponse response = client.prepareSearch("usmgbg_index")
 		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
@@ -113,6 +115,7 @@ public class UsmgbgController {
 		        .get();	
 		
 		return response;
+		
 	}
 
 }
