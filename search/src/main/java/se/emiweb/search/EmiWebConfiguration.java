@@ -12,6 +12,8 @@ import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 
@@ -40,12 +42,15 @@ public class EmiWebConfiguration {
 		        "\"message\":\"trying out Elasticsearch\"" +
 		    "}";
 		
-		IndexResponse info = client.prepareIndex("usmgbg_index", "usmgbg_type", "1")
-		        .setSource(json, XContentType.JSON)
-		        .get();
+		client.prepareIndex("usmgbg_index", "usmgbg_type", "1")
+		        .setSource(json, XContentType.JSON);
 		
-
-
+		
 		return client;
 	}
+	
+    @Bean
+    public ElasticsearchOperations elasticsearchTemplate() throws UnknownHostException {
+        return new ElasticsearchTemplate(client());
+    }
 }

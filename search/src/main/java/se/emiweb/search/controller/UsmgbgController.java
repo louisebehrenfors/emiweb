@@ -1,24 +1,39 @@
 package se.emiweb.search.controller;
 
+import java.util.List;
+
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchType;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
+import org.springframework.data.elasticsearch.core.ResultsExtractor;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.query.GetQuery;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.elasticsearch.index.query.MatchQueryBuilder;
 
+import se.emiweb.search.model.Usmgbg;
 import se.emiweb.search.repository.UsmgbgRepository;
+import se.emiweb.search.EmiWebConfiguration;
 
 @RestController
-@RequestMapping("/rest/search")
+@RequestMapping("/rest/search/usmgbg")
 public class UsmgbgController {
+	
 	@Autowired
 	UsmgbgRepository repository;
 	
 	@Autowired
 	Client client;
+	
+	private  ElasticsearchOperations elasticsearchOperations;
 
 	
 
@@ -30,15 +45,16 @@ public class UsmgbgController {
 		
 		return search_response;
 	} 
-	
-	@GetMapping("/{name}")
-	public SearchResponse searchName(@PathVariable("name") String name) {
-		
-		SearchResponse search_response = client.prepareSearch("usmgbg_index")
-		.setPostFilter(QueryBuilders.matchQuery("Name", name))
-		.get();
-		
 
-		return search_response;
+	@GetMapping("/byexaktname/{name}")
+	public SearchResponse findByExactName(@PathVariable String name) {
+		
+		SearchResponse response = client.prepareSearch("usmgbg_index")
+		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+		        .setQuery(QueryBuilders.matchQuery("Name", name).operator(MatchQueryBuilder.DEFAULT_OPERATOR.AND))	//term to match
+		        .setFrom(0).setSize(100).setExplain(true)			//return max 100 results
+		        .get();	
+		
+		return response;
 	}
 }

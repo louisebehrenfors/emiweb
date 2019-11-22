@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import se.emiweb.search.model.Usmgbg;
 
 
-@Repository	
+@Repository("ElasticsearchRepository")
 public interface UsmgbgRepository extends ElasticsearchRepository<Usmgbg, String>{
 	List<Usmgbg> findAll();
 }
