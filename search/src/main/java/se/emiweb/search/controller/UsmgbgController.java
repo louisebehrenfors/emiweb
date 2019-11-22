@@ -48,3 +48,72 @@ public class UsmgbgController {
 		
 		return search_response;
 	} 
+	@GetMapping("/byexactname/{name}")
+	public SearchResponse findByExactName(@PathVariable String name) {
+		
+		QueryBuilder query = QueryBuilders.matchQuery("Name", name)
+				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.AND);
+		
+		SearchResponse response = client.prepareSearch("usmgbg_index")
+		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+		        .setQuery(query)	//term to match
+		        .setFrom(0).setSize(100).setExplain(true)			//return max 100 results
+		        .get();	
+		
+		return response;
+	}
+	
+	@GetMapping("/byfuzzyname/{name}")
+	public SearchResponse findByFuzzyName(@PathVariable String name) {
+		
+		QueryBuilder query = QueryBuilders.matchQuery("Name", name)
+				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.AND)
+				.fuzziness("AUTO");
+		
+		SearchResponse response = client.prepareSearch("usmgbg_index")
+		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+		        .setQuery(query)	//term to match
+		        .setFrom(0).setSize(100).setExplain(true)			//return max 100 results
+		        .get();	
+		
+		return response;
+
+	}
+	
+	@GetMapping("/byid/{id}")
+	public SearchResponse findById(@PathVariable String id) {
+		
+		QueryBuilder query = QueryBuilders.matchQuery("ID", id );
+		
+		SearchResponse response = client.prepareSearch("usmgbg_index")
+				.setQuery(query)
+				.setFrom(0).setSize(100).setExplain(true)
+				.get();
+		
+		return response;
+	}
+	
+	
+	@GetMapping("/allfields/{text}")
+	public SearchResponse findByAllField(@PathVariable String text) {
+		
+		
+		QueryBuilder query = QueryBuilders.boolQuery()
+				.should(QueryBuilders.queryStringQuery(text)
+						.lenient(true)
+						.field("ID")
+						.field("Name")
+						.field("Profession")
+						.field("Country")
+						).should(QueryBuilders.queryStringQuery("*"+text+"*"));
+		
+		SearchResponse response = client.prepareSearch("usmgbg_index")
+		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+		        .setQuery(query)	//term to match
+		        .setFrom(0).setSize(100).setExplain(true)			//return max 100 results
+		        .get();	
+		
+		return response;
+		
+	}
+}
