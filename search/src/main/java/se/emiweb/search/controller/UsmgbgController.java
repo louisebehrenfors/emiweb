@@ -26,7 +26,6 @@ import se.emiweb.search.EmiWebConfiguration;
 
 @RestController
 @RequestMapping("/rest/search/usmgbg")
-
 public class UsmgbgController {
 	
 	@Autowired
