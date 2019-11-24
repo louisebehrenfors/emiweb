@@ -7,6 +7,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 public class Larsson_pop {
 
 	@Id
-	private String ID;
-	private String Source, Name, Profession, Country, FileName, LastModified, OwnerID;
+	private String Id;
+	private String LastName, FirstName, Profession, HomeLocation, HomeParish, HomeProvince, SourceCode, LetterDate, Notes, LastModified, OwnerID;
+	
 }
