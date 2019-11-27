@@ -6,6 +6,7 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,9 @@ public class Larrsson_popController {
 	@Autowired
 	Client client;
 	
-	@GetMapping("/all")
+	
+	@CrossOrigin
+	@RequestMapping("/all")
 	public SearchResponse findAll() {
 		
 		QueryBuilder query = QueryBuilders.matchAllQuery();
@@ -38,6 +41,7 @@ public class Larrsson_popController {
 	
 	//Need configuration
 	//Talk about how field should prioritize
+	@CrossOrigin()
 	@GetMapping("/allfields/{text}")
 	public SearchResponse findByAllField(@PathVariable String text) {
 

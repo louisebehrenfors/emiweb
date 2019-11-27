@@ -82,7 +82,7 @@ public class UsmgbgController {
 	@GetMapping("/byid/{id}")
 	public SearchResponse findById(@PathVariable String id) {
 		
-		QueryBuilder query = QueryBuilders.matchQuery("ID", id );
+		QueryBuilder query = QueryBuilders.matchQuery("Id", id );
 		
 		SearchResponse response = client.prepareSearch("usmgbg_index")
 				.setQuery(query)
@@ -100,7 +100,7 @@ public class UsmgbgController {
 		QueryBuilder query = QueryBuilders.boolQuery()
 				.should(QueryBuilders.queryStringQuery(text)
 						.lenient(true)
-						.field("ID")
+						.field("Id")
 						.field("Name")
 						.field("Profession")
 						.field("Country")
@@ -114,5 +114,27 @@ public class UsmgbgController {
 		
 		return response;
 		
+	}
+
+	@GetMapping("/allindexes/{text}")
+	public SearchResponse findByAllIndexes(@PathVariable String text) {
+		
+		
+		QueryBuilder query = QueryBuilders.boolQuery()
+				.should(QueryBuilders.queryStringQuery(text)
+						.lenient(true)
+						.field("Id")
+						.field("Name")
+						.field("FirstName")
+						.field("LastName")
+						).should(QueryBuilders.queryStringQuery("*"+text+"*"));
+		
+		SearchResponse response = client.prepareSearch("usmgbg_index", "larsson_pop_index")
+		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+		        .setQuery(query)	//term to match
+		        .setFrom(0).setSize(10000).setExplain(true)			//return max 100 results
+		        .get();	
+		
+		return response;
 	}
 }
