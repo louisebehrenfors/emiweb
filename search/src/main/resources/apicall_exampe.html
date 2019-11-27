@@ -1,0 +1,28 @@
+
+<meta charset="UTF-8">
+
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    </head>
+    <body>
+        
+    </body>
+    <script>
+    
+
+    $( document ).ready(function() {
+
+            $.ajax({
+                url: "http://localhost:8080/rest/search/larsson_pop/all",
+                contentType: "application/json",
+                dataType: 'json',
+                success: function(result){
+                    console.log(result);
+                }
+            })
+    
+    });
+    </script>
+</html>
