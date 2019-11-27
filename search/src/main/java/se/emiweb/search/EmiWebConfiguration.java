@@ -34,15 +34,7 @@ public class EmiWebConfiguration {
 		TransportClient client = new PreBuiltTransportClient(settings)
 		        .addTransportAddress(new TransportAddress(InetAddress.getByName("localhost"), 9300));
 		
-		
-		String json = "{" +
-		        "\"user\":\"kimchy\"," +
-		        "\"postDate\":\"2013-01-30\"," +
-		        "\"message\":\"trying out Elasticsearch\"" +
-		    "}";
-		
-		client.prepareIndex("usmgbg_index", "usmgbg_type", "1")
-		        .setSource(json, XContentType.JSON);
+	
 		
 		
 		return client;

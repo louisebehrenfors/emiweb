@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.query.GetQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +36,8 @@ public class UsmgbgController {
 	Client client;
 	
 	private  ElasticsearchOperations elasticsearchOperations;
-
+	
+	@CrossOrigin
 	@GetMapping("/all")
 	public SearchResponse findAll() {
 		
@@ -47,6 +49,8 @@ public class UsmgbgController {
 		
 		return search_response;
 	} 
+	
+	@CrossOrigin
 	@GetMapping("/byexactname/{name}")
 	public SearchResponse findByExactName(@PathVariable String name) {
 		
@@ -62,6 +66,7 @@ public class UsmgbgController {
 		return response;
 	}
 	
+	@CrossOrigin
 	@GetMapping("/byfuzzyname/{name}")
 	public SearchResponse findByFuzzyName(@PathVariable String name) {
 		
@@ -79,6 +84,7 @@ public class UsmgbgController {
 
 	}
 	
+	@CrossOrigin
 	@GetMapping("/byid/{id}")
 	public SearchResponse findById(@PathVariable String id) {
 		
@@ -92,7 +98,7 @@ public class UsmgbgController {
 		return response;
 	}
 	
-	
+	@CrossOrigin
 	@GetMapping("/allfields/{text}")
 	public SearchResponse findByAllField(@PathVariable String text) {
 		
@@ -115,26 +121,6 @@ public class UsmgbgController {
 		return response;
 		
 	}
+	
 
-	@GetMapping("/allindexes/{text}")
-	public SearchResponse findByAllIndexes(@PathVariable String text) {
-		
-		
-		QueryBuilder query = QueryBuilders.boolQuery()
-				.should(QueryBuilders.queryStringQuery(text)
-						.lenient(true)
-						.field("Id")
-						.field("Name")
-						.field("FirstName")
-						.field("LastName")
-						).should(QueryBuilders.queryStringQuery("*"+text+"*"));
-		
-		SearchResponse response = client.prepareSearch("usmgbg_index", "larsson_pop_index")
-		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-		        .setQuery(query)	//term to match
-		        .setFrom(0).setSize(10000).setExplain(true)			//return max 100 results
-		        .get();	
-		
-		return response;
-	}
 }
