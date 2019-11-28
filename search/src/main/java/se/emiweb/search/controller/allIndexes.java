@@ -55,18 +55,29 @@ public class allIndexes {
 				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.AND)
 				.fuzziness("AUTO");
 		*/
-		
+		/*
   		QueryBuilder query = QueryBuilders.boolQuery()
-		.should(QueryBuilders.multiMatchQuery(text, "Name")
-				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR)
+		.should(QueryBuilders.multiMatchQuery(text, "Name", "Profession")
 				.fuzziness("AUTO")
-				)
-		.should(QueryBuilders.multiMatchQuery(text, "FirstName", "LastName")
+				).should(QueryBuilders.queryStringQuery("*"+text+"*"))
+		.should(QueryBuilders.multiMatchQuery(text, "FirstName", "LastName", "Profession")
 				.type("cross_fields")
-				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR)
-				.fuzziness("AUTO"));
-		 
+				.fuzziness("AUTO")
+				).should(QueryBuilders.queryStringQuery("*"+text+"*"));
+		*/
   		
+		
+		 QueryBuilder query = QueryBuilders.boolQuery()
+		.should(QueryBuilders.queryStringQuery(text)
+				.defaultOperator(MatchQueryBuilder.DEFAULT_OPERATOR.AND)
+				.lenient(true)
+				.field("Name").boost(5)
+				.field("FirstName").boost(5)
+				.field("LastName").boost(10)
+				).should(QueryBuilders.multiMatchQuery(text, "Profession", "Country").fuzziness("AUTO")).should(QueryBuilders.queryStringQuery("*"+text+"*"));
+		
+
+		
 		SearchResponse response = client.prepareSearch("usmgbg_index", "larsson_pop_index")
 		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
 		        .setQuery(query)	//term to match
