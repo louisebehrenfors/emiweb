@@ -65,20 +65,22 @@ public class allIndexes {
 				.fuzziness("AUTO")
 				).should(QueryBuilders.queryStringQuery("*"+text+"*"));
 		*/
-  		
 		
+		/*
+ 		QueryBuilder query = QueryBuilders.boolQuery()
+		.should(QueryBuilders.queryStringQuery("*"+text+"*")
+				.field("Name")
+				.field("Profession")
+				
+				);
+		
+		 */
 		 QueryBuilder query = QueryBuilders.boolQuery()
-		.should(QueryBuilders.queryStringQuery(text)
-				.defaultOperator(MatchQueryBuilder.DEFAULT_OPERATOR.AND)
-				.lenient(true)
-				.field("Name").boost(5)
-				.field("FirstName").boost(5)
-				.field("LastName").boost(10)
-				).should(QueryBuilders.multiMatchQuery(text, "Profession", "Country").fuzziness("AUTO")).should(QueryBuilders.queryStringQuery("*"+text+"*"));
+		.should(QueryBuilders.multiMatchQuery(text, "Name", "Profession", "FirstName", "LastName").fuzziness("AUTO"));
 		
 
 		
-		SearchResponse response = client.prepareSearch("usmgbg_index", "larsson_pop_index")
+		SearchResponse response = client.prepareSearch("usmgbg_index", "larsson_pop_index") //, "larsson_pop_index"
 		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
 		        .setQuery(query)	//term to match
 		        .setFrom(0).setSize(10).setExplain(true)		//return max 100 results
