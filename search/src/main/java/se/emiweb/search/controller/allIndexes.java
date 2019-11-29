@@ -12,15 +12,43 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/rest/search/allindexes")
+@RequestMapping("rest/search/allindexes")
 public class allIndexes {
 	
 	@Autowired
 	Client client;
 	
+	
+	@CrossOrigin
+	@GetMapping("/x/advanced")
+	public SearchResponse advancedSearch(@RequestParam(required = false) String LastName,
+										 @RequestParam(required = false) String FirstName,
+										 @RequestParam(required = false) String Profession) {
+
+	
+
+		
+		System.out.println(FirstName + " " + LastName);
+		
+		return null;
+	}
+	
+	private QueryBuilder query(String field, String text)
+	{
+		QueryBuilder query = QueryBuilders.boolQuery()
+				.should(QueryBuilders.queryStringQuery(text)
+						.lenient(true)
+						.field("Id")
+						.field("Name").boost(4)
+						.field("FirstName")
+						.field("LastName")
+						);
+		return null;
+	}
 	@CrossOrigin
 	@GetMapping("/{text}")
 	public SearchResponse findByAllIndexes(@PathVariable String text) {
@@ -33,7 +61,7 @@ public class allIndexes {
 						.field("Name").boost(4)
 						.field("FirstName")
 						.field("LastName")
-						).should(QueryBuilders.queryStringQuery("*"+text+"*"));
+						);
 						
 		*/
 		
@@ -75,11 +103,37 @@ public class allIndexes {
 				);
 		
 		 */
+		//SPLIT SEARCHWORD INTO SEPERATE WORDS???
+		//Case sensetive
+		/*
+		 System.out.println(text);
 		 QueryBuilder query = QueryBuilders.boolQuery()
-		.should(QueryBuilders.multiMatchQuery(text, "Name", "Profession", "FirstName", "LastName").fuzziness("AUTO"));
-		
+		.should(QueryBuilders.multiMatchQuery(text, "Profession", "Name" ,"FirstName", "LastName")
+				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR)
+				.fuzziness("AUTO"));
+		 
+		 		System.out.println(text);
+		 QueryBuilder query = QueryBuilders.boolQuery()
+		.should(QueryBuilders.multiMatchQuery(text, "Profession", "Name", "FirstName", "LastName")
+				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR)
+				.fuzziness("AUTO"))
+		.should(QueryBuilders.multiMatchQuery(text, "FirstName", "LastName")
+				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.AND)
+				.fuzziness("AUTO")	
+				.type("cross_fields"))
+		 */
+		 //alla ord tolkas för sig, separeas med ' ', gör en querystringquery för FirstName och Lastname med cross fields för att söka dem som ett fält??
 
-		
+		 QueryBuilder query = QueryBuilders.boolQuery()
+		.should(QueryBuilders.multiMatchQuery(text, "Profession", "Name" ,"FirstName", "LastName")
+				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR)
+				.fuzziness("AUTO"))
+		.should(QueryBuilders.multiMatchQuery(text, "Profession", "Name" ,"FirstName", "LastName")
+				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR).boost(2));
+		 
+		 
+
+			
 		SearchResponse response = client.prepareSearch("usmgbg_index", "larsson_pop_index") //, "larsson_pop_index"
 		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
 		        .setQuery(query)	//term to match
