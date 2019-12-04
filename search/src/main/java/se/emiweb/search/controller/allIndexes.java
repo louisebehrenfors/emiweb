@@ -1,5 +1,8 @@
 package se.emiweb.search.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
@@ -22,8 +25,7 @@ public class allIndexes {
 	@Autowired
 	Client client;
 	
-	
-	@CrossOrigin
+	/*@CrossOrigin
 	@GetMapping("/x/advanced")
 	public SearchResponse advancedSearch(@RequestParam(required = false) String LastName,
 										 @RequestParam(required = false) String FirstName,
@@ -35,20 +37,42 @@ public class allIndexes {
 		System.out.println(FirstName + " " + LastName);
 		
 		return null;
+	}*/
+	
+	@CrossOrigin
+	@GetMapping("/x/advanced")
+	public SearchResponse advancedSearch(@RequestParam(required = false) Map<String, String> params) {
+		QueryBuilder query = null;
+
+		for(Map.Entry<String, String> entry : params.entrySet())
+		{
+			query = query(query, entry.getKey(), entry.getValue());
+		}
+		
+		
+		
+		SearchResponse response = client.prepareSearch("usmgbg_index", "larsson_pop_index") //, "larsson_pop_index"
+		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+		        .setQuery(query)	//term to match
+		        .setFrom(0).setSize(10).setExplain(true)		//return max 100 results
+		        .get();	
+		
+		return response;
 	}
 	
-	private QueryBuilder query(String field, String text)
+	private QueryBuilder query(QueryBuilder query, String field, String text)
 	{
-		QueryBuilder query = QueryBuilders.boolQuery()
+		System.out.println(field + " " + text);
+		
+		query = QueryBuilders.boolQuery()
 				.should(QueryBuilders.queryStringQuery(text)
 						.lenient(true)
-						.field("Id")
-						.field("Name").boost(4)
-						.field("FirstName")
-						.field("LastName")
+						.field(field)
 						);
-		return null;
+		
+		return query;
 	}
+	
 	@CrossOrigin
 	@GetMapping("/{text}")
 	public SearchResponse findByAllIndexes(@PathVariable String text) {
@@ -124,14 +148,18 @@ public class allIndexes {
 		 */
 		 //alla ord tolkas för sig, separeas med ' ', gör en querystringquery för FirstName och Lastname med cross fields för att söka dem som ett fält??
 
-		 QueryBuilder query = QueryBuilders.boolQuery()
+		 /*QueryBuilder query = QueryBuilders.boolQuery()
 		.should(QueryBuilders.multiMatchQuery(text, "Profession", "Name" ,"FirstName", "LastName")
 				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR)
 				.fuzziness("AUTO"))
 		.should(QueryBuilders.multiMatchQuery(text, "Profession", "Name" ,"FirstName", "LastName")
-				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR).boost(2));
+				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR).boost(2));*/
 		 
-		 
+		QueryBuilder query = QueryBuilders.boolQuery()
+				.should(QueryBuilders.queryStringQuery(text)
+						.lenient(true)
+						.field("Name")
+						);
 
 			
 		SearchResponse response = client.prepareSearch("usmgbg_index", "larsson_pop_index") //, "larsson_pop_index"
