@@ -112,27 +112,29 @@ public class allIndexes {
 
 		}
 		
-		if(!isValidQuery) {
+		if(isValidQuery) {
+			SearchResponse response = client.prepareSearch("usmgbg_index", "larsson_pop_index")
+			        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+			        .setQuery(query)	//term to match
+			        .setFrom(pageNumber*pageSize).setSize(pageSize).setExplain(true)
+			        .get();	
+				
+			
+			
+			return response.getHits();
+		}
+		else {
 			return null;
 		}
-		
 
-		SearchResponse response = client.prepareSearch("usmgbg_index", "larsson_pop_index")
-		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-		        .setQuery(query)	//term to match
-		        .setFrom(pageNumber*pageSize).setSize(pageSize).setExplain(true)
-		        .get();	
-			
-		
-		
-		return response.getHits();
+
 	}
 
 	
 	@CrossOrigin
 	@GetMapping("/likegoogle")
 	public SearchHits findByAllIndexes( @RequestParam(required = false) String search,
-											@RequestParam(defaultValue = "0") String page	) {
+										@RequestParam(defaultValue = "0") String page	) {
 		
 
     	try {
@@ -141,78 +143,8 @@ public class allIndexes {
     	catch(Exception e){
     		System.out.println(e);
     	}
-		/*
-		QueryBuilder query = QueryBuilders.boolQuery()
-				.should(QueryBuilders.queryStringQuery(text)
-						.lenient(true)
-						.field("Name", 10)
-						.field("FirstName")
-						.field("LastName")
-						.field("Profession")
-						
-						);
-		*/		
-		
-		
-		/*
-		 QueryBuilder query = QueryBuilders.boolQuery()
-		.should(QueryBuilders.queryStringQuery(text)
-				.lenient(true)
-				.field("Name")
-				).should(QueryBuilders.queryStringQuery("*"+text+"*"))
-		.should(QueryBuilders.queryStringQuery(text)
-				.defaultOperator(MatchQueryBuilder.DEFAULT_OPERATOR.OR)
-				.lenient(true)
-				.field("FirstName")
-				.field("LastName")
-				).should(QueryBuilders.queryStringQuery("*"+text+"*"));
-		 
-		 */
-		/*		QueryBuilder query = QueryBuilders.matchQuery("Name", name)
-				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.AND)
-				.fuzziness("AUTO");
-		*/
-		/*
-  		QueryBuilder query = QueryBuilders.boolQuery()
-		.should(QueryBuilders.multiMatchQuery(text, "Name", "Profession")
-				.fuzziness("AUTO")
-				).should(QueryBuilders.queryStringQuery("*"+text+"*"))
-		.should(QueryBuilders.multiMatchQuery(text, "FirstName", "LastName", "Profession")
-				.type("cross_fields")
-				.fuzziness("AUTO")
-				).should(QueryBuilders.queryStringQuery("*"+text+"*"));
-		*/
-		
-		/*
- 		QueryBuilder query = QueryBuilders.boolQuery()
-		.should(QueryBuilders.queryStringQuery("*"+text+"*")
-				.field("Name")
-				.field("Profession")
-				
-				);
-		
-		 */
-		//SPLIT SEARCHWORD INTO SEPERATE WORDS???
-		//Case sensetive
-		/*
-		 System.out.println(text);
-		 QueryBuilder query = QueryBuilders.boolQuery()
-		.should(QueryBuilders.multiMatchQuery(text, "Profession", "Name" ,"FirstName", "LastName")
-				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR)
-				.fuzziness("AUTO"));
-		 
-		 		System.out.println(text);
-		 QueryBuilder query = QueryBuilders.boolQuery()
-		.should(QueryBuilders.multiMatchQuery(text, "Profession", "Name", "FirstName", "LastName")
-				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR)
-				.fuzziness("AUTO"))
-		.should(QueryBuilders.multiMatchQuery(text, "FirstName", "LastName")
-				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.AND)
-				.fuzziness("AUTO")	
-				.type("cross_fields"))
-		 */
-		 //alla ord tolkas för sig, separeas med ' ', gör en querystringquery för FirstName och Lastname med cross fields för att söka dem som ett fält??
 
+    	
 		QueryBuilder query = QueryBuilders.boolQuery()
 		.should(QueryBuilders.multiMatchQuery(search, "Profession", "Name" ,"FirstName", "LastName")
 				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR)
