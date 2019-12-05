@@ -22,21 +22,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("rest/search/allindexes")
+@RequestMapping("search/allindexes")
 public class allIndexes {
 	
 	@Autowired
 	Client client;
+	private int pageNumber = 0;
+	final int pageSize = 10;
+	
+	
+	
 	
 	@CrossOrigin
-	@GetMapping("/x/advanced")
+	@GetMapping("/advanced")
 	public SearchResponse advancedSearch(@RequestParam(required = false) Map<String, String> params) {
 		
 		BoolQueryBuilder query = QueryBuilders.boolQuery();
 		String Name = "";
-		int page = 0;
-		int pageSize = 10;
+		
 		boolean isValidQuery = false;
+		
+		
+		
 		
         ArrayList<String> notAllowedFields = new ArrayList<String>() { 
             { 
@@ -49,10 +56,11 @@ public class allIndexes {
             } 
         }; 
 		
+        
         if(params.containsKey("page"))
         {
         	try {
-        		page = Integer.parseInt(params.get("page"));  
+        		pageNumber = Integer.parseInt(params.get("page"));  
         	}
         	catch(Exception e){
         		System.out.println(e);
@@ -111,7 +119,7 @@ public class allIndexes {
 		SearchResponse response = client.prepareSearch("usmgbg_index", "larsson_pop_index")
 		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
 		        .setQuery(query)	//term to match
-		        .setFrom(page*pageSize).setSize(pageSize).setExplain(true)
+		        .setFrom(pageNumber*pageSize).setSize(pageSize).setExplain(true)
 		        .get();	
 			
 		
@@ -121,20 +129,29 @@ public class allIndexes {
 
 	
 	@CrossOrigin
-	@GetMapping("/{text}")
-	public SearchResponse findByAllIndexes(@PathVariable String text) {
+	@GetMapping("/likegoogle")
+	public SearchResponse findByAllIndexes( @RequestParam(required = false) String search,
+											@RequestParam(defaultValue = "0") String page	) {
 		
+
+    	try {
+    		pageNumber = Integer.parseInt(page);  
+    	}
+    	catch(Exception e){
+    		System.out.println(e);
+    	}
 		/*
 		QueryBuilder query = QueryBuilders.boolQuery()
 				.should(QueryBuilders.queryStringQuery(text)
 						.lenient(true)
-						.field("Id")
-						.field("Name").boost(4)
+						.field("Name", 10)
 						.field("FirstName")
 						.field("LastName")
-						);
+						.field("Profession")
 						
-		*/
+						);
+		*/		
+		
 		
 		/*
 		 QueryBuilder query = QueryBuilders.boolQuery()
@@ -195,24 +212,23 @@ public class allIndexes {
 		 */
 		 //alla ord tolkas för sig, separeas med ' ', gör en querystringquery för FirstName och Lastname med cross fields för att söka dem som ett fält??
 
-		 /*QueryBuilder query = QueryBuilders.boolQuery()
-		.should(QueryBuilders.multiMatchQuery(text, "Profession", "Name" ,"FirstName", "LastName")
-				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR)
-				.fuzziness("AUTO"))
-		.should(QueryBuilders.multiMatchQuery(text, "Profession", "Name" ,"FirstName", "LastName")
-				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR).boost(2));*/
-		 
 		QueryBuilder query = QueryBuilders.boolQuery()
-				.should(QueryBuilders.queryStringQuery(text)
-						.lenient(true)
-						.field("Name")
-						);
+		.should(QueryBuilders.multiMatchQuery(search, "Profession", "Name" ,"FirstName", "LastName")
+				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR)
+				.fuzziness("AUTO")
+				.type("most_fields"))
+		.should(QueryBuilders.multiMatchQuery(search, "Profession", "Name" ,"FirstName", "LastName")
+				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR)
+				.type("most_fields")
+				
+				);
+		 
 
 			
 		SearchResponse response = client.prepareSearch("usmgbg_index", "larsson_pop_index") //, "larsson_pop_index"
 		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
 		        .setQuery(query)	//term to match
-		        .setFrom(0).setSize(10).setExplain(true)		//return max 100 results
+		        .setFrom(pageNumber*pageSize).setSize(pageSize).setExplain(true)		//return max 100 results
 		        .get();	
 			
 		
