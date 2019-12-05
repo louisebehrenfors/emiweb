@@ -1,11 +1,14 @@
 package se.emiweb.search.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -25,53 +28,97 @@ public class allIndexes {
 	@Autowired
 	Client client;
 	
-	/*@CrossOrigin
-	@GetMapping("/x/advanced")
-	public SearchResponse advancedSearch(@RequestParam(required = false) String LastName,
-										 @RequestParam(required = false) String FirstName,
-										 @RequestParam(required = false) String Profession) {
-
-	
-
-		
-		System.out.println(FirstName + " " + LastName);
-		
-		return null;
-	}*/
-	
 	@CrossOrigin
 	@GetMapping("/x/advanced")
 	public SearchResponse advancedSearch(@RequestParam(required = false) Map<String, String> params) {
-		QueryBuilder query = null;
+		
+		BoolQueryBuilder query = QueryBuilders.boolQuery();
+		String Name = "";
+		int page = 0;
+		int pageSize = 10;
+		boolean isValidQuery = false;
+		
+        ArrayList<String> notAllowedFields = new ArrayList<String>() { 
+            { 
+            	add("Id");
+            	add("FileName");
+            	add("LastModified");
+            	add("OwnerID");
+            	add("SourceCode");
+            	
+            } 
+        }; 
+		
+        if(params.containsKey("page"))
+        {
+        	try {
+        		page = Integer.parseInt(params.get("page"));  
+        	}
+        	catch(Exception e){
+        		System.out.println(e);
+        	}
+        	 	
+        }
 
-		for(Map.Entry<String, String> entry : params.entrySet())
-		{
-			query = query(query, entry.getKey(), entry.getValue());
+        
+        
+        params.remove("page");
+        
+	
+		
+		if (params.containsKey("FirstName") || params.containsKey("LastName")) {
+			if(params.containsKey("FirstName")) {
+				Name += params.get("FirstName");
+			}
+			
+			if(params.containsKey("LastName")) {
+				if(Name != null) {
+					Name += " ";
+				}
+				
+				Name += params.get("LastName");
+			}
+
+			params.put("Name", Name);
 		}
 		
 		
+				
 		
-		SearchResponse response = client.prepareSearch("usmgbg_index", "larsson_pop_index") //, "larsson_pop_index"
+
+		for(Map.Entry<String, String> entry : params.entrySet())
+		{
+			if(!notAllowedFields.contains(entry.getKey())) {
+				
+				isValidQuery = true;
+				
+				String field = entry.getKey();
+				String value = entry.getValue();
+
+				
+				query.should(QueryBuilders.matchQuery(field, value).fuzziness("AUTO"));	
+			}
+
+			
+
+		}
+		
+		if(!isValidQuery) {
+			return null;
+		}
+		
+
+		SearchResponse response = client.prepareSearch("usmgbg_index", "larsson_pop_index")
 		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
 		        .setQuery(query)	//term to match
-		        .setFrom(0).setSize(10).setExplain(true)		//return max 100 results
+		        .setFrom(page*pageSize).setSize(pageSize).setExplain(true)
 		        .get();	
+			
+		
 		
 		return response;
 	}
-	
-	private QueryBuilder query(QueryBuilder query, String field, String text)
-	{
-		System.out.println(field + " " + text);
-		
-		query = QueryBuilders.boolQuery()
-				.should(QueryBuilders.queryStringQuery(text)
-						.lenient(true)
-						.field(field)
-						);
-		
-		return query;
-	}
+
 	
 	@CrossOrigin
 	@GetMapping("/{text}")

@@ -9,5 +9,5 @@ public class Larsson_pop {
 	@Id
 	private String Id;
 	private String LastName, FirstName, Profession, HomeLocation, HomeParish, HomeProvince, SourceCode, LetterDate, Notes, LastModified, OwnerID;
-	
+
 }
