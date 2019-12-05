@@ -13,6 +13,7 @@ import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHits;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +36,7 @@ public class allIndexes {
 	
 	@CrossOrigin
 	@GetMapping("/advanced")
-	public SearchResponse advancedSearch(@RequestParam(required = false) Map<String, String> params) {
+	public SearchHits advancedSearch(@RequestParam(required = false) Map<String, String> params) {
 		
 		BoolQueryBuilder query = QueryBuilders.boolQuery();
 		String Name = "";
@@ -124,13 +125,13 @@ public class allIndexes {
 			
 		
 		
-		return response;
+		return response.getHits();
 	}
 
 	
 	@CrossOrigin
 	@GetMapping("/likegoogle")
-	public SearchResponse findByAllIndexes( @RequestParam(required = false) String search,
+	public SearchHits findByAllIndexes( @RequestParam(required = false) String search,
 											@RequestParam(defaultValue = "0") String page	) {
 		
 
@@ -232,6 +233,6 @@ public class allIndexes {
 		        .get();	
 			
 		
-		return response;
+		return response.getHits();
 	}
 }
