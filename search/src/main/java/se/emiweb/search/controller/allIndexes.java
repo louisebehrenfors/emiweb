@@ -48,6 +48,7 @@ public class allIndexes {
 	public SearchHits advancedSearch(@RequestParam(required = false) Map<String, String> params) {
 		
 		Service service = new Service(client);
+		
 		String Name = "";
 		
 		
@@ -63,15 +64,8 @@ public class allIndexes {
         }; 
 		
         
-        if(params.containsKey("page"))
-        {
-        	try {
-        		pageNumber = Integer.parseInt(params.get("page"));  
-        	}
-        	catch(Exception e){
-        		System.out.println(e);
-        	}
-        	 	
+        if(params.containsKey("page")){
+        	pageNumber = getValidPage(params.get("page"));
         }
 
         params.remove("page");
@@ -106,19 +100,36 @@ public class allIndexes {
 	public SearchHits findByAllIndexes( @RequestParam(required = false) String search,
 										@RequestParam(defaultValue = "0") String page	) {
 		
-		
-		
+
 		Service service = new Service(client);
 
+		pageNumber = getValidPage(page);
+    	        
+		return service.likegoogle(search, allFields, allIndexes, pageNumber);	
+	}
+	
+	
+	private int getValidPage(String page) {
+		
+		int pageNumber;
+		
     	try {
     		pageNumber = Integer.parseInt(page);  
     	}
     	catch(Exception e){
     		System.out.println(e);
+    		return 0;
+    		
     	}
-    	        
-		return service.likegoogle(search, allFields, allIndexes, pageNumber);
 		
+		if(pageNumber >= 0) {
+			return pageNumber;
+		}
+		else {
+			return 0;
+		}
+    	
 		
 	}
+	
 }
