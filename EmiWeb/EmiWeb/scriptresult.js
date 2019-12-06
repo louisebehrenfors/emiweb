@@ -3,39 +3,57 @@ let params = new URLSearchParams(document.location.search.substring(1));
 let search = params.get("allSearchInput");
 
 
+
+let bla = window.location.search.substr(1);
+console.log(bla);
+
+
+console.log(params);
+
 var larsson_pop = "larsson_pop_index";
 var usmgbg = "usmgbg_index";
 var emptyField ="\N";
 var emptyField2 ="//N";
+var advSearchVariable;
 
+if(bla.includes("allSearchInput")){
+  bla =search;
+  advSearchVariable = "likegoogle?search=";
+}
+else advSearchVariable = "advanced?";
 
 
 $( document ).ready(function() {
+  /*
   var hackbajs = document.getElementById("jsonfan").textContent;
   var jsonbajs = JSON.parse(hackbajs);
   console.log(jsonbajs);
   console.log(jsonbajs.hits.hits[0].sourceAsMap.FirstName);
 
   /*******TEST JSON***********/
+  /*
   var number_of_hits = jsonbajs.hits.totalHits;
   var data = jsonbajs.hits.hits;
   theFilterViewFunction(data,number_of_hits);
   document.getElementById("headerSearch").innerHTML = "Alla sökresultat för gris";
-/*  document.getElementById("headerSearch").innerHTML = "Alla sökresultat för <q>"+ search+"</q>";
+  */
+  document.getElementById("headerSearch").innerHTML = "Alla sökresultat för <q>"+ bla+"</q>";
             $.ajax({
-                url: "http://192.168.43.191:8080/rest/search/allindexes/"+search,
+                url: "http://192.168.137.211:8080/search/allindexes/"+advSearchVariable+bla,
                 contentType: "application/json",
                 dataType: 'json',
                 success: function(result){
-                  var number_of_hits = result.hits.totalHits;
-                  var data = result.hits.hits;
+                  var number_of_hits = result.totalHits;
+                  var data = result.hits;
                   theFilterViewFunction(data,number_of_hits);
                   var resultdis = JSON.stringify(result);
                     console.log(result);
                 }
             })
     });
-*/});
+
+
+
 function theFilterViewFunction(data,number_of_hits){
 
   var startcount = 0;

@@ -51,7 +51,7 @@ function allSearchFunction(){
   console.log(x);
 }
 
-
+/*
 function googleSearchFunction(){
   var search = document.getElementById("googleSearch").value;
   console.log(search);
@@ -65,9 +65,10 @@ function googleSearchFunction(){
           console.log(result.hits.hits[0].sourceAsMap.FirstName);
       }
   })
-}
+}*/
 
 function openAdvancedSearch(){
-  var x = document.getElementById("advDiv");
-  x.style.display = 'block'; 
+  var x = document.getElementById("AdvancedMenu");
+  if(x.style.display == 'block') x.style.display = 'none';
+  else x.style.display = 'block';
 }

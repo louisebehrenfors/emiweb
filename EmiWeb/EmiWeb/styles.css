@@ -14,6 +14,21 @@ body,html {
 }
 /*********** ALL DIVS *****************/
 
+#AdvancedMenu{
+  display: none;
+  text-align: center;
+  margin-bottom: 2vh;
+  min-height: 150px;
+  margin-top: -10px;
+}
+#formDiv{
+  width: 100%;
+  min-height: 150px;
+  position: relative;
+  vertical-align: middle;
+  text-align: center;
+}
+
 .header {
   background-image:url("header.jpg");
   background-position: center;
@@ -72,10 +87,10 @@ body,html {
 }
 .allSearchForm{
   /*height:200px;*/
-  min-height: 200px;
-  height: auto;
+  background-color: red;
+  min-height: 150px;
   width:74vw;
-  height: 50%;
+  height: 100%;
   display: block;
   background-color: #ededed;
   border-radius: 15px;
@@ -86,6 +101,9 @@ body,html {
   margin-bottom: 1vh;
   overflow:auto;
   vertical-align: middle;
+  padding-top: 3vh;
+  padding-left: 3vw;
+  padding-right: 3vw;
 }
 .specficSearch{
   background-color:#ededed;
@@ -111,23 +129,6 @@ body,html {
   margin-bottom: 20px;
 }
 
-.advDiv{
-  /*height:200px;*/
-  height: auto;
-  height:50%;
-  width:74vw;
-  bottom:0;
-  display: block;
-  background-color: red;
-  border-radius: 15px;
-  border: 0.5px solid #a3a3a3;
-  margin: 0 auto;
-  position: absolute;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
-  overflow:auto;
-  vertical-align: middle;
-}
 #results{
   background-color:#ededed;
   width:80%;
@@ -176,7 +177,10 @@ h2{
   text-align: center;
 
 }
-
+h3{
+    font-family: 'Raleway', sans-serif;
+    font-size: 2vw;
+}
 h5{
     font-family: 'Raleway', sans-serif;
     font-size: 2vh;
@@ -255,17 +259,15 @@ hr {
 }
 .buttonSearch{
   background-color: #0B2250;
-  width: 60%;
-  height: 20%;
+  width: 50vw;
+  height: 3vh;
+  min-height: 30px;
   color:#F5F5F5;
   border-radius: 2px;
   border:none;
-  margin-top: 2.5vh;
+  margin-top: 1vh;
   text-align: center;
-  position: absolute;
-  left: 50%;
-  top: 60%;
-  transform: translate(-50%,-50%);
+  position: relative;
 
 }
 .buttonSearch:hover{
@@ -295,10 +297,18 @@ hr {
   background-color: grey;
 }
 
-#myAdvBut{
-  bottom:10px;
-  right:10px;
-  position: absolute;
+.AdvancedSearch{
+  border: none;
+  height: 2vh;
+  min-height: 30px;
+  background-color: #ededed;
+  width: auto;
+}
+.AdvancedSearch:hover{
+  border: none;
+  text-decoration: underline;
+  background-color: #ededed;
+  width: auto;
 }
 #turnaround{
   -webkit-transform: rotate(-90deg);
@@ -307,7 +317,8 @@ hr {
 /******** STYLE THE INPUT FORM ***********/
 input[type=search] {
   border: 1px solid #a3a3a3;
-  height: 6vh;
+  height: 2vh;
+  min-height: 30px;
   width:  70%;
   margin: 0 auto;
   margin-left: auto;
@@ -316,10 +327,8 @@ input[type=search] {
   padding-left: 0.2vw;
   margin-bottom: 1vh;
   text-align: center;
-  position: absolute;
-  left: 50%;
-  top: 40%;
-  transform: translate(-50%,-50%);
+  position: relative;
+  margin-top: 1vw;
 }
 ::placeholder{
   margin-left: 10vw;
@@ -419,7 +428,7 @@ a:hover{
   }
   ::placeholder{
     margin-left: 10vw;
-    font-size: 1vh;
+    font-size: 1vw;
   }
 
   .helpcontainer{
