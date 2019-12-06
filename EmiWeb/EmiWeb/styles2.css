@@ -1,5 +1,4 @@
 /*comment stylesheet*/
-
 /*#0B2250*/
 *{
     margin: 0;
@@ -21,73 +20,20 @@ body,html {
   height: 10vw;
   position:absolute;
 }
-.contentArchive{
-  margin-top: 12vw;
-  margin-left: 50px;
-  margin-right: 50px;
-  margin-bottom: 20px;
-  text-align: justify;
-}
 
 .container{
   margin-top: 10vw;
   width: 100vw;
   height:100%;
   margin: 0 auto;
-  position: absolute;
+  /*position: absolute;*/
   color:black;
 }
 .content{
   margin-top: 12vw;
 }
-.helpcontainer{
-  margin-top:12vw;
-  margin-left:50px;
-  margin-right: 50px;
-}
 
-.help-Shift{
-    background-color: white;
-}
-.help-menu{
-  width:100%;
-  margin-top: 1vw;
-  display: flex;
-  overflow: auto;
-  font-family: 'Raleway', sans-serif;
-}
-
-.helpSection{
-  display: none;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top:1vw;
-  text-align: justify;
-}
 .upperMenuSearch{
-  display: table;
-  margin: 0 auto;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
-}
-.allSearchForm{
-  /*height:200px;*/
-  min-height: 200px;
-  height: auto;
-  width:74vw;
-  height: 50%;
-  display: block;
-  background-color: #ededed;
-  border-radius: 15px;
-  border: 0.5px solid #a3a3a3;
-  margin: 0 auto;
-  position: relative;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
-  overflow:auto;
-  vertical-align: middle;
-}
-.specficSearch{
   background-color:#ededed;
   width:74vw;
   /*height:50vh;*/
@@ -104,45 +50,34 @@ body,html {
   display: table;
 }
 
-.containerResult{
-  margin-top: 12vw;
-  margin-left: 50px;
-  margin-right: 50px;
-  margin-bottom: 20px;
+.allSearchForm{
+  /*height:200px;*/
+  min-height: 200px;
+  width: 100%;
+  /*display: block;*/
+  background-color: #ededed;
+  margin: 0 auto;
+  vertical-align: middle;
 }
 
-.advDiv{
-  /*height:200px;*/
-  height: auto;
-  height:50%;
-  width:74vw;
+#advDiv{
+  display: none;
+  position:absolute;
+  width:100%;
+  height:500px;
   bottom:0;
-  display: block;
   background-color: red;
-  border-radius: 15px;
-  border: 0.5px solid #a3a3a3;
   margin: 0 auto;
-  position: absolute;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
+  margin-top: 10px;
   overflow:auto;
   vertical-align: middle;
 }
-#results{
-  background-color:#ededed;
-  width:80%;
-  height:50%;
-  margin: 0 auto;
-  border-radius: 15px;
-  border: 0.5px solid #a3a3a3;
-  padding-top: 3vh;
-  padding-left: 3vw;
-  padding-bottom: 3vh;
-  padding-right: 3vw;
-  display: table;
-  margin-bottom: 4vh;
-  margin-top: 1vh;
-  overflow: auto;
+
+#myAdvBut{
+  margin-bottom: 10px;
+  bottom:60px;
+  right:60px;
+  position: absolute;
 }
 footer{
   width:100%;
@@ -255,8 +190,7 @@ hr {
 }
 .buttonSearch{
   background-color: #0B2250;
-  width: 60%;
-  height: 20%;
+
   color:#F5F5F5;
   border-radius: 2px;
   border:none;

@@ -1,15 +1,3 @@
-/*THE SCRIPT FILE FOR INDEX.HTML*/
-function showListFunction(click_id) {
-  console.log(click_id);
-  var x = document.getElementById(click_id);
-  console.log(x.style.display);
-  if (x.style.display != "block") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
-
 window.onload = function()
 {
    window.onscroll = function()
@@ -27,14 +15,6 @@ function scrollFunction() {
   } else {
     navbar.style.top = "10vw";
   }
-
-  var mybutton = document.getElementById("myBtn");
-
-  if (document.body.scrollTop > 30|| document.documentElement.scrollTop > 30) {
-    mybutton.style.display = 'block';
-  } else {
-    mybutton.style.display = 'none';
-  }
 }
 
 // When the user clicks on the button, scroll to the top of the document
@@ -51,4 +31,14 @@ function openNav() {
 function closeNav() {
   document.getElementById("frontSideNav").style.width= "0";
   document.getElementById("myNavBtn").style.display="block";
+}
+
+function openHelp(helpName) {
+  var i;
+  var x = document.getElementsByClassName("helpSection");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  document.getElementById(helpName).style.display = "block";
+  
 }

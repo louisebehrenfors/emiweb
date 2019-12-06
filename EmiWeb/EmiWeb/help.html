@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="styles.css">
+   <link rel="shortcut icon" href="emiweb.ico">
+   <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script src="scripthelp.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Raleway:600&display=swap" rel="stylesheet">
+  <title>EmiWeb</title>
+</head>
+<body>
+
+<div class ="container">
+    <div class ="header">
+      <h1> EmiWeb </h1>
+    </div>
+
+    <div id ="frontSideNav" class ="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="index.html">Start</a>
+      <a href="#">Sök</a>
+      <a href="#">Hjälp</a>
+      <a href="#">Kontakt</a>
+      <br><br>
+      <a href="#">Min sida</a>
+      <a href="#">Logga ut</a>
+  </div>
+
+  <button onclick="openNav()" id="myNavBtn" title="Go to top">&#9776;</button>
+
+  <div class = "helpcontainer">
+    <h2>Hjälpavsnitt</h2>
+
+
+
+    <!-- TAB SECTION -->
+
+    <div class="tabsContain">
+    <div class ="tab">
+      <input type="radio" name="css-tabs" id="tab-1" checked class="tab-switch">
+      <label for="tab-1" class="tab-label">Tab 1</label>
+        <div class ="tab-content">
+          <b>Support</b> <br>
+          Helgfria vardagar<br>
+          E-post: info@emiweb.se<br>
+          <b>Betalningsfrågor</b> <br>
+          E-post: payment@emiweb.se<br>
+          <b>Postadress:</b> <br>
+          Föreningen EmiWeb<br>
+          Box 331<br>
+          SE-65108 KARLSTAD<br>
+        </div>
+    </div>
+    <div class ="tab">
+      <input type="radio" name="css-tabs" id="tab-2" checked class="tab-switch">
+      <label for="tab-2" class="tab-label">Tab 2</label>
+        <div class="tab-content">
+          <b>Jag har glömt mitt lösenord, hur gör jag?</b> <br>
+          <a href="#">Klicka här </a>och fyll i din epostadress så skickas ett nytt lösenord ut till den epostadress som angavs vid beställningen.
+          <br><br><b>Informationen har ändrats sedan jag loggade in. Hur?</b><br>
+          En av EmiWebs stora fördelar är att materialet kontinuerligt uppdateras. Materialet du tittade på uppdaterades under din inloggningsperiod.
+          <br><br><b>Jag kan inte logga in</b><br>
+          Om du trots att du angett korrekta inloggningsuppgifter inte kommer åt EmiWeb,
+          beror det sannolikt på att EmiWeb är tillfälligt nedstängt för programteknisk uppdatering eller på grund av något annat driftstopp.
+          Liknande situationer annonseras alltid på <a href="http://www.emiweb.se">www.emiweb.se</a>
+          <br><br><b>Sidan är för stor för att visas på min bildskärm</b><br>
+          EmiWeb är utformat efter formatet 1024 x 768 bildpunkter. Om upplösningen justeras till denna eller högre kommer hela sidan att synas på skärmen.
+          <br><br><b>Varför står det EmiWeb rakt över alla bilder i EmiWeb?</b>
+          Texten du ser är en s.k. vattenstämpel. Ett autenticitetsbevis som talar om att bilden tillhör EmiWeb.
+          Denna används för att förhindra otillåten användning av materialet. Om du är intresserad av att köpa enskilda utskrifter för personligt bruk,
+          var god kontakta support med dina önskemål.
+          <br><br><b>Varför finns inte nyare material i databasen?</b><br>
+          De handlingar som utgör kärnan av EmiWeb:s material omfattas av Sveriges sekretesslag, vilket i praktiken innebär att handlingar yngre än 70 år
+          inte offentliggörs.
+          <br><br><b>Varför fungerar inte mitt lösenord?</b><br>
+          Lösenorden som skickas ut är automatiskt genererade. Bokstaven O och siffran 0 kan vara förvillande lika,
+          likaså 1 och I. Kontrollera noga vilka tecken lösenordet innehåller. Lösenorden gör också skillnad på gemener och VERSALER, skriv av lösenordet slaviskt.
+          <br><br><b>Vad är SSF förmånskod?</b><br>
+          Medlemmar i Sveriges Släktforskarförbund erbjuds att köpa EmiWeb till ett rabatterat pris via Rötters bokhandel.
+          Vid beställning av EmiWeb via Rötter erhålls en kod som kallas SSF förmånskod.
+          Vänligen notera att detta gäller enbart när man loggar in som medlem på Rötter.
+          <br><br><b>Min kreditkortsbetalning misslyckades, vad beror det på?</b><br>
+          Det kan finnas en mängd orsaker till att kortbetalning inte går igenom.
+          Vi kan inte styra över detta utan det sker automatiskt gentemot banken. För kunder utom Sverige ber vi er att kontrollera att kortet är öppet för internationella transaktioner.
+          Gällande VISA-kort kan vissa fel bero på att kortet inte stödjer "3-D Secure Payments". Om ni absolut inte får Ert kort att fungera,
+          vänligen kontakta Ert bankkontor alternativt prova ett annat kort.
+        <br><br><br>
+        </div>
+    </div>
+    <div class ="tab">
+      <input type="radio" name="css-tabs" id="tab-3" checked class="tab-switch">
+      <label for="tab-3" class="tab-label">Tab 3</label>
+        <div class="tab-content">
+          Dator med Internetanslutning, bredband rekommenderas. <br>
+            Grafisk webbläsare som stödjer HTML 4 och har JavaScript påslaget.
+            EmiWeb har testats med följande webbläsare: Mozilla Firefox, Safari(Mac), Internet Explorer 7 & 8 samt Opera. <br>
+            Om man får problem med att visa EmiWeb korrekt rekommenderas användaren att
+            installera Mozilla Firefox som finns att ladda ner gratis på http://www.mozilla.com/en-US/ <br>
+            För att utskrifter skall fungera korrekt bör man ställa in webbläsaren så att utskrifter "anpassar innehållet till sidan" <br>
+            Minsta rekommenderade skärmupplösning är 1024x768 <br>
+            Adobe Reader för visning av dokument (t ex brev)<br>
+            Bildhanteringsprogram som klarar JPG för visning av foton<br>
+            Ljudhanteringsprogram som klarar MP3 för uppspelning av ljudklipp. (t ex Windows Mediaplayer, Winamp)<br>
+            Filmhanteringsprogram som klara MPEG för visning av filmklipp. (t ex Windows Mediaplayer, VLC)<br>
+            För att kunna öppna länkar till Riksarkivet/SVAR behövs ett särskilt bildvisningsprogram,
+            DjVu Browser. DjVu finns tillgängligt för de vanligaste datortyperna dock ej alla versioner av operativsystem och webbläsare.
+            På Cuminas hemsida finns information om vilka versioner som finns tillgängliga. <br>
+        </div>
+    </div>
+    </div>
+
+  <div class ="help-Shift">
+  <div class="help-menu">
+    <button class="help-button" onclick="openHelp('help-contact')">Kontakta oss</button>
+    <button class="help-button" onclick="openHelp('help-faq')">Vanliga frågor</button>
+    <button class="help-button" onclick="openHelp('help-system')">Systemkrav</button>
+  </div>
+    <div id="help-contact" class="helpSection">
+      <p>
+          <b>Support</b> <br>
+          Helgfria vardagar<br>
+          E-post: info@emiweb.se<br>
+          <b>Betalningsfrågor</b> <br>
+          E-post: payment@emiweb.se<br>
+          <b>Postadress:</b> <br>
+          Föreningen EmiWeb<br>
+          Box 331<br>
+          SE-65108 KARLSTAD<br>
+    </p>
+    </div>
+
+    <div id="help-faq" class="helpSection">
+      <p>
+        <b>Jag har glömt mitt lösenord, hur gör jag?</b> <br>
+        <a href="#">Klicka här </a>och fyll i din epostadress så skickas ett nytt lösenord ut till den epostadress som angavs vid beställningen.
+        <br><br><b>Informationen har ändrats sedan jag loggade in. Hur?</b><br>
+        En av EmiWebs stora fördelar är att materialet kontinuerligt uppdateras. Materialet du tittade på uppdaterades under din inloggningsperiod.
+        <br><br><b>Jag kan inte logga in</b><br>
+        Om du trots att du angett korrekta inloggningsuppgifter inte kommer åt EmiWeb,
+        beror det sannolikt på att EmiWeb är tillfälligt nedstängt för programteknisk uppdatering eller på grund av något annat driftstopp.
+        Liknande situationer annonseras alltid på <a href="http://www.emiweb.se">www.emiweb.se</a>
+        <br><br><b>Sidan är för stor för att visas på min bildskärm</b><br>
+        EmiWeb är utformat efter formatet 1024 x 768 bildpunkter. Om upplösningen justeras till denna eller högre kommer hela sidan att synas på skärmen.
+        <br><br><b>Varför står det EmiWeb rakt över alla bilder i EmiWeb?</b>
+        Texten du ser är en s.k. vattenstämpel. Ett autenticitetsbevis som talar om att bilden tillhör EmiWeb.
+        Denna används för att förhindra otillåten användning av materialet. Om du är intresserad av att köpa enskilda utskrifter för personligt bruk,
+        var god kontakta support med dina önskemål.
+        <br><br><b>Varför finns inte nyare material i databasen?</b><br>
+        De handlingar som utgör kärnan av EmiWeb:s material omfattas av Sveriges sekretesslag, vilket i praktiken innebär att handlingar yngre än 70 år
+        inte offentliggörs.
+        <br><br><b>Varför fungerar inte mitt lösenord?</b><br>
+        Lösenorden som skickas ut är automatiskt genererade. Bokstaven O och siffran 0 kan vara förvillande lika,
+        likaså 1 och I. Kontrollera noga vilka tecken lösenordet innehåller. Lösenorden gör också skillnad på gemener och VERSALER, skriv av lösenordet slaviskt.
+        <br><br><b>Vad är SSF förmånskod?</b><br>
+        Medlemmar i Sveriges Släktforskarförbund erbjuds att köpa EmiWeb till ett rabatterat pris via Rötters bokhandel.
+        Vid beställning av EmiWeb via Rötter erhålls en kod som kallas SSF förmånskod.
+        Vänligen notera att detta gäller enbart när man loggar in som medlem på Rötter.
+        <br><br><b>Min kreditkortsbetalning misslyckades, vad beror det på?</b><br>
+        Det kan finnas en mängd orsaker till att kortbetalning inte går igenom.
+        Vi kan inte styra över detta utan det sker automatiskt gentemot banken. För kunder utom Sverige ber vi er att kontrollera att kortet är öppet för internationella transaktioner.
+        Gällande VISA-kort kan vissa fel bero på att kortet inte stödjer "3-D Secure Payments". Om ni absolut inte får Ert kort att fungera,
+        vänligen kontakta Ert bankkontor alternativt prova ett annat kort.
+      <br><br><br></p>
+    </div>
+
+    <div id="help-system" class="helpSection">
+      <p>Dator med Internetanslutning, bredband rekommenderas. <br>
+        Grafisk webbläsare som stödjer HTML 4 och har JavaScript påslaget.
+        EmiWeb har testats med följande webbläsare: Mozilla Firefox, Safari(Mac), Internet Explorer 7 & 8 samt Opera. <br>
+        Om man får problem med att visa EmiWeb korrekt rekommenderas användaren att
+        installera Mozilla Firefox som finns att ladda ner gratis på http://www.mozilla.com/en-US/ <br>
+        För att utskrifter skall fungera korrekt bör man ställa in webbläsaren så att utskrifter "anpassar innehållet till sidan" <br>
+        Minsta rekommenderade skärmupplösning är 1024x768 <br>
+        Adobe Reader för visning av dokument (t ex brev)<br>
+        Bildhanteringsprogram som klarar JPG för visning av foton<br>
+        Ljudhanteringsprogram som klarar MP3 för uppspelning av ljudklipp. (t ex Windows Mediaplayer, Winamp)<br>
+        Filmhanteringsprogram som klara MPEG för visning av filmklipp. (t ex Windows Mediaplayer, VLC)<br>
+        För att kunna öppna länkar till Riksarkivet/SVAR behövs ett särskilt bildvisningsprogram,
+        DjVu Browser. DjVu finns tillgängligt för de vanligaste datortyperna dock ej alla versioner av operativsystem och webbläsare.
+        På Cuminas hemsida finns information om vilka versioner som finns tillgängliga. <br>
+      </p>
+    </div>
+</div>
+  </div>
+
+
+    <footer class ="myFooter">
+      <h6> © EmiWeb 2007-2017 </h6>
+    </footer>
+
+  </body>
+
+  </html>

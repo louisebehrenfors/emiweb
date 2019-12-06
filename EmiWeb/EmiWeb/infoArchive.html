@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="stylesheet" href="styles.css">
    <link rel="shortcut icon" href="emiweb.ico">
+   <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
    <script src="script.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Raleway:600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,600&display=swap" rel="stylesheet">
   <title>EmiWeb</title>
 </head>
 <body>
@@ -14,6 +16,19 @@
     <div class ="header">
       <a href="index.html"><h1> EmiWeb </h1></a>
     </div>
+    <div id ="frontSideNav" class ="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="index.html">Start</a>
+      <a href="#">Sök</a>
+      <a href="help.html">Hjälp</a>
+      <a href="#">Kontakt</a>
+      <br><br>
+      <a href="#">Min sida</a>
+      <a href="#">Logga ut</a>
+  </div>
+
+  <button onclick="openNav()" id="myNavBtn" title="Go to top">&#9776;</button>
+
     <div class ="contentArchive">
       <h2> Alla arkiv </h2>
       <div id="InfoPassSweHarbor">
@@ -37,7 +52,7 @@
           Vid datoriseringen upptäcktes och korrigerades en rad felaktigheter i det ursprungliga registret och vissa felskrivningar och feltolkningar tillkom. Databasen har delvis kunnat kontrolleras och rättas. Vissa felaktigheter finns dock fortfarande kvar.
           Databasen har sedan den första versionen kompletterats med tiden 1930-1950 och med Helsingborg 1929-1950. Vidare har den utökats med svenskar som rest över Hamburg 1850-1891, vilka uppgifter har registrerats av Sten Aminoff.
           Dessutom har databasen tillförts svenskar som rest över Köpenhamn 1868-1898.</p>
-      </div>
+      <br><hr></div>
       <div id="InfoEmiSweChurch">
         <br>
 <h3>Information om arkivet Emigranter registrerade i svenska kyrkböcker:</h3>
@@ -271,10 +286,11 @@ Registret innehåller cirka 49 000 emigranter.
 <br><br>
 Nya uppgifter och nytt material tillförs löpande som bilagor till emigrantregistret i Örebro. Varje vecka inkommer nytt material som brev, foton, levnadsberättelser, tidningsartiklar, kontaktuppgifter till levande släktingar i Amerika m.m. Kompletterande registrering görs även när uppgifter om emigranterna återfinns i andra databaser, som register över bouppteckningar, svensk-amerikanska kyrkböcker, svensk-amerikanska tidningar, passagerarlistor m.m.
 </p>
-      </div>
-      
-</div>
+      <br><hr><br></div>
 
+</div>
+<button onclick="topFunction()" id="myBtn" title="Go to top">&#8593;</button>
+</div>
   <footer class ="myFooter">
     <h6> © EmiWeb 2007-2017 </h6>
   </footer>
