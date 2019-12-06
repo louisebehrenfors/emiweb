@@ -1,5 +1,7 @@
 package se.emiweb.search.controller;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -8,6 +10,7 @@ import org.springframework.data.elasticsearch.core.ResultsExtractor;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHits;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.query.GetQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
@@ -23,10 +27,14 @@ import org.elasticsearch.index.query.QueryBuilder;
 
 import se.emiweb.search.model.Usmgbg;
 import se.emiweb.search.repository.UsmgbgRepository;
+import se.emiweb.search.service.Service;
+import se.emiweb.search.service.validatePage;
 import se.emiweb.search.EmiWebConfiguration;
+import se.emiweb.search.service.Generator;
+import se.emiweb.search.service.Service;
 
 @RestController
-@RequestMapping("/rest/search/usmgbg")
+@RequestMapping("/search/usmgbg")
 public class UsmgbgController {
 	
 	@Autowired
@@ -36,91 +44,51 @@ public class UsmgbgController {
 	Client client;
 	
 	private  ElasticsearchOperations elasticsearchOperations;
+	int pageNumber = 0;
 	
 	@CrossOrigin
-	@GetMapping("/all")
-	public SearchResponse findAll() {
+	@GetMapping("/advanced")
+	public SearchHits advancedSearch(@RequestParam(required = false) Map<String, String> params) {
 		
-		QueryBuilder query = QueryBuilders.matchAllQuery();
+		Service service = new Service(client);
+		int pageNumber = 0;
+		
+		String Name = "";
+	       
+        if(params.containsKey("page")){
+        	pageNumber = new validatePage().check(params.get("page"));
+        }
+        params.remove("page");
+        		
+		if (params.containsKey("FirstName") || params.containsKey("LastName")) {
+			if(params.containsKey("FirstName")) {
+				Name += params.get("FirstName");
+			}
+			
+			if(params.containsKey("LastName")) {
+				if(Name != null) {
+					Name += " ";
+				}
 				
-		SearchResponse search_response = client.prepareSearch("usmgbg_index")
-				.setPostFilter(query)
-				.get();
-		
-		return search_response;
-	} 
-	
-	@CrossOrigin
-	@GetMapping("/byexactname/{name}")
-	public SearchResponse findByExactName(@PathVariable String name) {
-		
-		QueryBuilder query = QueryBuilders.matchQuery("Name", name)
-				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.AND);
-		
-		SearchResponse response = client.prepareSearch("usmgbg_index")
-		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-		        .setQuery(query)	//term to match
-		        .setFrom(0).setSize(100).setExplain(true)			//return max 100 results
-		        .get();	
-		
-		return response;
-	}
-	
-	@CrossOrigin
-	@GetMapping("/byfuzzyname/{name}")
-	public SearchResponse findByFuzzyName(@PathVariable String name) {
-		
-		QueryBuilder query = QueryBuilders.matchQuery("Name", name)
-				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.AND)
-				.fuzziness("AUTO");
-		
-		SearchResponse response = client.prepareSearch("usmgbg_index")
-		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-		        .setQuery(query)	//term to match
-		        .setFrom(0).setSize(100).setExplain(true)			//return max 100 results
-		        .get();	
-		
-		return response;
+				Name += params.get("LastName");
+			}
 
+			params.put("Name", Name);
+		}
+		
+		return service.advanced(params, Usmgbg.getSearchFields(), new String[]{"usmgbg_index"} , pageNumber);
 	}
 	
 	@CrossOrigin
-	@GetMapping("/byid/{id}")
-	public SearchResponse findById(@PathVariable String id) {
+	@GetMapping("/likegoogle")
+	public SearchHits findByAllIndexes( @RequestParam(required = false) String search,
+										@RequestParam(defaultValue = "0") String page	) {
 		
-		QueryBuilder query = QueryBuilders.matchQuery("Id", id );
-		
-		SearchResponse response = client.prepareSearch("usmgbg_index")
-				.setQuery(query)
-				.setFrom(0).setSize(100).setExplain(true)
-				.get();
-		
-		return response;
-	}
-	
-	@CrossOrigin
-	@GetMapping("/allfields/{text}")
-	public SearchResponse findByAllField(@PathVariable String text) {
-		
-		
-		QueryBuilder query = QueryBuilders.boolQuery()
-				.should(QueryBuilders.queryStringQuery(text)
-						.lenient(true)
-						.field("Id")
-						.field("Name")
-						.field("Profession")
-						.field("Country")
-						).should(QueryBuilders.queryStringQuery("*"+text+"*"));
-		
-		SearchResponse response = client.prepareSearch("usmgbg_index")
-		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-		        .setQuery(query)	//term to match
-		        .setFrom(0).setSize(100).setExplain(true)			//return max 100 results
-		        .get();	
-		
-		return response;
-		
-	}
-	
 
+		Service service = new Service(client);
+
+		pageNumber = new validatePage().check(page);
+    	        
+		return service.likegoogle(search, Usmgbg.getSearchFields(), new String[]{"usmgbg_index"}, pageNumber);	
+	}
 }

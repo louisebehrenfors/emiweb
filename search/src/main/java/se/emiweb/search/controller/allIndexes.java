@@ -28,6 +28,7 @@ import se.emiweb.search.model.Larsson_pop;
 import se.emiweb.search.model.Usmgbg;
 import se.emiweb.search.service.Generator;
 import se.emiweb.search.service.Service;
+import se.emiweb.search.service.validatePage;
 
 @RestController
 @RequestMapping("search/allindexes")
@@ -52,13 +53,10 @@ public class allIndexes {
 		String Name = "";
 	       
         if(params.containsKey("page")){
-        	pageNumber = getValidPage(params.get("page"));
+        	pageNumber = new validatePage().check(params.get("page"));
         }
-
         params.remove("page");
-        
-	
-		
+        		
 		if (params.containsKey("FirstName") || params.containsKey("LastName")) {
 			if(params.containsKey("FirstName")) {
 				Name += params.get("FirstName");
@@ -75,10 +73,7 @@ public class allIndexes {
 			params.put("Name", Name);
 		}
 		
-		String[] indexes = new String[]{"usmgbg_index", "larsson_pop_index"};
-		return service.advanced(params, allFields, indexes, pageNumber);
-
-
+		return service.advanced(params, allFields, allIndexes, pageNumber);
 	}
 
 	
@@ -90,33 +85,10 @@ public class allIndexes {
 
 		Service service = new Service(client);
 
-		pageNumber = getValidPage(page);
+		pageNumber = new validatePage().check(page);
     	        
 		return service.likegoogle(search, allFields, allIndexes, pageNumber);	
 	}
 	
-	
-	private int getValidPage(String page) {
-		
-		int pageNumber;
-		
-    	try {
-    		pageNumber = Integer.parseInt(page);  
-    	}
-    	catch(Exception e){
-    		System.out.println(e);
-    		return 0;
-    		
-    	}
-		
-		if(pageNumber >= 0) {
-			return pageNumber;
-		}
-		else {
-			return 0;
-		}
-    	
-		
-	}
 	
 }
