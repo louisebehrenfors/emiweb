@@ -9,5 +9,7 @@ public class Larsson_pop {
 	@Id
 	private String Id;
 	private String LastName, FirstName, Profession, HomeLocation, HomeParish, HomeProvince, SourceCode, LetterDate, Notes, LastModified, OwnerID;
+	
+	String[] fileds = new String[] {"Id", "LastName", "FirstName", "Profession", "HomeLocation", "HomeParish", "HomeProvince", "LetterDate", "Notes"};
 
 }
