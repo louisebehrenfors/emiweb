@@ -2,6 +2,7 @@ package se.emiweb.search.controller;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import se.emiweb.search.model.Larsson_pop;
+import se.emiweb.search.model.Usmgbg;
+import se.emiweb.search.service.Generator;
 import se.emiweb.search.service.Service;
 
 @RestController
@@ -32,10 +36,11 @@ public class allIndexes {
 	@Autowired
 	Client client;
 	
-	
-	
 	private int pageNumber = 0;
 	final int pageSize = 10;
+	
+	static ArrayList<String> allFields = new Generator().generateFieldList();
+	static String[] allIndexes = new Generator().generateIndexList();
 	
 	
 	@CrossOrigin
@@ -101,6 +106,8 @@ public class allIndexes {
 	public SearchHits findByAllIndexes( @RequestParam(required = false) String search,
 										@RequestParam(defaultValue = "0") String page	) {
 		
+		
+		
 		Service service = new Service(client);
 
     	try {
@@ -109,12 +116,8 @@ public class allIndexes {
     	catch(Exception e){
     		System.out.println(e);
     	}
-
-       
-        String[] fields = new String[]{"Profession", "Name" ,"FirstName", "LastName"};
-        String[] indexes = new String[]{"usmgbg_index", "larsson_pop_index"};
-        
-		return service.likegoogle(search, fields, indexes, pageNumber);
+    	        
+		return service.likegoogle(search, allFields, allIndexes, pageNumber);
 		
 		
 	}

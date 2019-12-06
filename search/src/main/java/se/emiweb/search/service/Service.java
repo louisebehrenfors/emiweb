@@ -1,7 +1,9 @@
 package se.emiweb.search.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.*;
 
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -12,6 +14,9 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHits;
 import org.springframework.context.annotation.Bean;
+
+import se.emiweb.search.model.Usmgbg;
+
 import org.elasticsearch.action.search.SearchResponse;
 
 
@@ -20,6 +25,9 @@ public class Service {
 	
 	public Service(Client client) {
 		this.client = client;
+		
+	
+		
 	}
 	
 	private SearchHits executeQuery(QueryBuilder query, String[] indexes, int page) {
@@ -35,13 +43,15 @@ public class Service {
 		
 	}
 	
-	public SearchHits likegoogle(String search, String[] fields, String[] indexes, int page) {
+	public SearchHits likegoogle(String search, ArrayList<String>  fields, String[] indexes, int page) {
+		String[] fieldsAsArray = fields.toArray(new String[fields.size()]);
+		
         QueryBuilder query = QueryBuilders.boolQuery()
-        		.should(QueryBuilders.multiMatchQuery(search, fields)
+        		.should(QueryBuilders.multiMatchQuery(search, fieldsAsArray)
         				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR)
         				.fuzziness("AUTO")
         				.type("most_fields"))
-        		.should(QueryBuilders.multiMatchQuery(search, fields)
+        		.should(QueryBuilders.multiMatchQuery(search, fieldsAsArray)
         				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR)
         				.type("most_fields")
         				.boost(2));
