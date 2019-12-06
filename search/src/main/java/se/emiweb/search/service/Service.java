@@ -15,6 +15,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHits;
 import org.springframework.context.annotation.Bean;
 
+import se.emiweb.search.controller.allIndexes;
 import se.emiweb.search.model.Usmgbg;
 
 import org.elasticsearch.action.search.SearchResponse;
@@ -63,7 +64,7 @@ public class Service {
 	
 	
 	
-	public SearchHits advanced(Map<String, String> params, ArrayList<String> notAllowedFields, String[] indexes,  int page) {
+	public SearchHits advanced(Map<String, String> params, ArrayList<String> allowedFields, String[] indexes,  int page) {
 		
 		boolean isValidQuery = false;
 		
@@ -71,7 +72,7 @@ public class Service {
 		
 		for(Map.Entry<String, String> entry : params.entrySet())
 		{
-			if(!notAllowedFields.contains(entry.getKey())) {
+			if(allowedFields.contains(entry.getKey())) {
 				
 				isValidQuery = true;
 				

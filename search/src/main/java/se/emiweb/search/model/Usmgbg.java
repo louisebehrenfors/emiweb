@@ -21,5 +21,4 @@ public class Usmgbg {
 		String[] fields = new String[] {"Source", "Name", "Profession", "Country"};
 		return new ArrayList<String>(Arrays.asList(fields));
 	}
-	
 }

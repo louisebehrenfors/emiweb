@@ -39,7 +39,7 @@ public class allIndexes {
 	private int pageNumber = 0;
 	final int pageSize = 10;
 	
-	static ArrayList<String> allFields = new Generator().generateFieldList();
+	public static ArrayList<String> allFields = new Generator().generateFieldList();
 	static String[] allIndexes = new Generator().generateIndexList();
 	
 	
@@ -50,20 +50,7 @@ public class allIndexes {
 		Service service = new Service(client);
 		
 		String Name = "";
-		
-		
-        ArrayList<String> notAllowedFields = new ArrayList<String>() { 
-            { 
-            	add("Id");
-            	add("FileName");
-            	add("LastModified");
-            	add("OwnerID");
-            	add("SourceCode");
-            	
-            } 
-        }; 
-		
-        
+	       
         if(params.containsKey("page")){
         	pageNumber = getValidPage(params.get("page"));
         }
@@ -89,7 +76,7 @@ public class allIndexes {
 		}
 		
 		String[] indexes = new String[]{"usmgbg_index", "larsson_pop_index"};
-		return service.advanced(params, notAllowedFields, indexes, pageNumber);
+		return service.advanced(params, allFields, indexes, pageNumber);
 
 
 	}

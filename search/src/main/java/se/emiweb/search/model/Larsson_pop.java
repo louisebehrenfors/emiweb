@@ -15,13 +15,9 @@ public class Larsson_pop {
 	@Id
 	private String Id;
 	private String LastName, FirstName, Profession, HomeLocation, HomeParish, HomeProvince, SourceCode, LetterDate, Notes, LastModified, OwnerID;
-	
-	
-	
-	
+		
 	public static ArrayList<String> getSearchFields() {
 		String[] fields = new String[] {"LastName", "FirstName", "Profession", "HomeLocation", "HomeParish", "HomeProvince", "LetterDate", "Notes"};
 		return new ArrayList<String>(Arrays.asList(fields));
 	}
-
 }

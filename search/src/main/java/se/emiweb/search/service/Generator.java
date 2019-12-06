@@ -13,12 +13,10 @@ public class Generator {
 		
 		join(all_fields, Usmgbg.getSearchFields());
 		join(all_fields, Larsson_pop.getSearchFields());
-		
-		
-		
+				
 		return all_fields;
 	}
-	
+		
 	private void join(ArrayList<String> dest, ArrayList<String> source) {
 		for(String field : source) {
 			if(!dest.contains(field)) {
