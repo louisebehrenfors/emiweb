@@ -34,8 +34,6 @@ public class EmiWebConfiguration {
 		TransportClient client = new PreBuiltTransportClient(settings)
 		        .addTransportAddress(new TransportAddress(InetAddress.getByName("localhost"), 9300));
 		
-	
-		
 		
 		return client;
 	}

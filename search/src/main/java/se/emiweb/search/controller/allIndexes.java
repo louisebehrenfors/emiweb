@@ -1,5 +1,6 @@
 package se.emiweb.search.controller;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,28 +23,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import se.emiweb.search.service.Service;
+
 @RestController
 @RequestMapping("search/allindexes")
 public class allIndexes {
 	
 	@Autowired
 	Client client;
+	
+	
+	
 	private int pageNumber = 0;
 	final int pageSize = 10;
-	
-	
 	
 	
 	@CrossOrigin
 	@GetMapping("/advanced")
 	public SearchHits advancedSearch(@RequestParam(required = false) Map<String, String> params) {
 		
-		BoolQueryBuilder query = QueryBuilders.boolQuery();
+		Service service = new Service(client);
 		String Name = "";
-		
-		boolean isValidQuery = false;
-		
-		
 		
 		
         ArrayList<String> notAllowedFields = new ArrayList<String>() { 
@@ -69,8 +69,6 @@ public class allIndexes {
         	 	
         }
 
-        
-        
         params.remove("page");
         
 	
@@ -91,41 +89,8 @@ public class allIndexes {
 			params.put("Name", Name);
 		}
 		
-		
-				
-		
-
-		for(Map.Entry<String, String> entry : params.entrySet())
-		{
-			if(!notAllowedFields.contains(entry.getKey())) {
-				
-				isValidQuery = true;
-				
-				String field = entry.getKey();
-				String value = entry.getValue();
-
-				
-				query.should(QueryBuilders.matchQuery(field, value).fuzziness("AUTO"));	
-			}
-
-			
-
-		}
-		
-		if(isValidQuery) {
-			SearchResponse response = client.prepareSearch("usmgbg_index", "larsson_pop_index")
-			        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-			        .setQuery(query)	//term to match
-			        .setFrom(pageNumber*pageSize).setSize(pageSize).setExplain(true)
-			        .get();	
-				
-			
-			
-			return response.getHits();
-		}
-		else {
-			return null;
-		}
+		String[] indexes = new String[]{"usmgbg_index", "larsson_pop_index"};
+		return service.advanced(params, notAllowedFields, indexes, pageNumber);
 
 
 	}
@@ -136,6 +101,7 @@ public class allIndexes {
 	public SearchHits findByAllIndexes( @RequestParam(required = false) String search,
 										@RequestParam(defaultValue = "0") String page	) {
 		
+		Service service = new Service(client);
 
     	try {
     		pageNumber = Integer.parseInt(page);  
@@ -144,27 +110,12 @@ public class allIndexes {
     		System.out.println(e);
     	}
 
-    	
-		QueryBuilder query = QueryBuilders.boolQuery()
-		.should(QueryBuilders.multiMatchQuery(search, "Profession", "Name" ,"FirstName", "LastName")
-				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR)
-				.fuzziness("AUTO")
-				.type("most_fields"))
-		.should(QueryBuilders.multiMatchQuery(search, "Profession", "Name" ,"FirstName", "LastName")
-				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR)
-				.type("most_fields")
-				
-				);
-		 
-
-			
-		SearchResponse response = client.prepareSearch("usmgbg_index", "larsson_pop_index") //, "larsson_pop_index"
-		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-		        .setQuery(query)	//term to match
-		        .setFrom(pageNumber*pageSize).setSize(pageSize).setExplain(true)		//return max 100 results
-		        .get();	
-			
+       
+        String[] fields = new String[]{"Profession", "Name" ,"FirstName", "LastName"};
+        String[] indexes = new String[]{"usmgbg_index", "larsson_pop_index"};
+        
+		return service.likegoogle(search, fields, indexes, pageNumber);
 		
-		return response.getHits();
+		
 	}
 }
