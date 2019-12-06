@@ -20,5 +20,6 @@ public class validatePage {
 			else {
 				return 0;
 			}
+			
 	}
 }

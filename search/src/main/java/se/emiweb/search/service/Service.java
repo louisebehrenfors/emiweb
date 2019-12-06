@@ -1,9 +1,7 @@
 package se.emiweb.search.service;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.*;
 
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -13,12 +11,6 @@ import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHits;
-import org.springframework.context.annotation.Bean;
-
-import se.emiweb.search.controller.allIndexes;
-import se.emiweb.search.model.Usmgbg;
-
-import org.elasticsearch.action.search.SearchResponse;
 
 
 public class Service {

@@ -2,13 +2,9 @@ package se.emiweb.search.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
 @Document(indexName="usmgbg_index", type="usmgbg_type")
 public class Usmgbg {
