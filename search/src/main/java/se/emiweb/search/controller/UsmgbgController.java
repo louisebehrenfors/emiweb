@@ -29,7 +29,6 @@ public class UsmgbgController {
 	
 	NameExtractor nameExtractor = new NameExtractor();
 	
-	private  ElasticsearchOperations elasticsearchOperations;
 	int pageNumber = 0;
 	
 	@CrossOrigin
@@ -37,7 +36,6 @@ public class UsmgbgController {
 	public SearchHits advancedSearch(@RequestParam(required = false) Map<String, String> params) {
 		
 		Service service = new Service(client);
-		
 		nameExtractor.insertNameToMap(params);
 		
         if(params.containsKey("page")){
@@ -45,7 +43,7 @@ public class UsmgbgController {
         	params.remove("page");
         }
         
-		
+
 		return service.advanced(params, Usmgbg.getSearchFields(), new String[]{"usmgbg_index"} , pageNumber);
 	}
 	
@@ -54,11 +52,8 @@ public class UsmgbgController {
 	public SearchHits findByAllIndexes( @RequestParam(required = false) String search,
 										@RequestParam(defaultValue = "0") String page	) {
 		
-
 		Service service = new Service(client);
-
 		pageNumber = new validatePage().check(page);
-    	        
 		return service.likegoogle(search, Usmgbg.getSearchFields(), new String[]{"usmgbg_index"}, pageNumber);	
 	}
 }

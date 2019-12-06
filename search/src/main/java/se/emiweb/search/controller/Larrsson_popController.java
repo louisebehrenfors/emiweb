@@ -26,7 +26,6 @@ public class Larrsson_popController {
 	@Autowired
 	Client client;
 	
-	private  ElasticsearchOperations elasticsearchOperations;
 	int pageNumber = 0;
 	
 	@CrossOrigin

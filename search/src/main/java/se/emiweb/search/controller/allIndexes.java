@@ -25,13 +25,12 @@ public class allIndexes {
 	@Autowired
 	Client client;
 	
-	private int pageNumber = 0;
-	final int pageSize = 10;
 	NameExtractor nameExtractor = new NameExtractor();
 	
-	public static ArrayList<String> allFields = new Generator().generateFieldList();
-	static String[] allIndexes = new Generator().generateIndexList();
+	private int pageNumber = 0;
 	
+	private static ArrayList<String> allFields = new Generator().generateFieldList();
+	private static String[] allIndexes = new Generator().generateIndexList();
 	
 	@CrossOrigin
 	@GetMapping("/advanced")
@@ -54,11 +53,8 @@ public class allIndexes {
 	public SearchHits findByAllIndexes( @RequestParam(required = false) String search,
 										@RequestParam(defaultValue = "0") String page	) {
 		
-
 		Service service = new Service(client);
-
-		pageNumber = new validatePage().check(page);
-    	        
+		pageNumber = new validatePage().check(page);     
 		return service.likegoogle(search, allFields, allIndexes, pageNumber);	
 	}
 	
