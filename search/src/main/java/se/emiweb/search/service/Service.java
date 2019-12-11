@@ -25,7 +25,7 @@ public class Service {
 	
 	private SearchHits executeQuery(QueryBuilder query, String[] indexes, int page) {
 		int pageSize = 10;
-		
+
 		SearchResponse response = client.prepareSearch(indexes)
 		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
 		        .setQuery(query)
