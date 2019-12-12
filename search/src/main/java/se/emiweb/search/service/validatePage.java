@@ -10,8 +10,7 @@ public class validatePage {
 	    	}
 	    	catch(Exception e){
 	    		System.out.println(e);
-	    		return 0;
-	    		
+	    		return 0;	    		
 	    	}
 			
 			if(pageNumber >= 0) {
@@ -19,7 +18,6 @@ public class validatePage {
 			}
 			else {
 				return 0;
-			}
-			
+			}		
 	}
 }

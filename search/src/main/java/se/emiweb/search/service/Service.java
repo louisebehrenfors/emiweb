@@ -23,15 +23,18 @@ public class Service {
 		
 	}
 	
-	private SearchHits executeQuery(QueryBuilder query, String[] indexes, int page) {
+	public Service() {
+	}
+
+	private SearchHits executeQuery(BoolQueryBuilder query, String[] indexes, int page) {
 		int pageSize = 10;
-		
+
 		SearchResponse response = client.prepareSearch(indexes)
 		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
 		        .setQuery(query)
 		        .setFrom(page*pageSize).setSize(pageSize).setExplain(true)
 		        .get();	
-		
+
 		return response.getHits();
 		
 	}
@@ -39,7 +42,7 @@ public class Service {
 	public SearchHits likegoogle(String search, ArrayList<String>  fields, String[] indexes, int page) {
 		String[] fieldsAsArray = fields.toArray(new String[fields.size()]);
 		
-        QueryBuilder query = QueryBuilders.boolQuery()
+        BoolQueryBuilder query = QueryBuilders.boolQuery()
         		.should(QueryBuilders.multiMatchQuery(search, fieldsAsArray)
         				.operator(MatchQueryBuilder.DEFAULT_OPERATOR.OR)
         				.fuzziness("AUTO")
@@ -49,14 +52,14 @@ public class Service {
         				.type("most_fields")
         				.boost(2));
         
-
+        
 		
 		return executeQuery(query, indexes, page);
 	}
 	
 	
 	
-	public SearchHits advanced(Map<String, String> params, ArrayList<String> allowedFields, String[] indexes,  int page) {
+	/*public SearchHits advanced(Map<String, String> params, ArrayList<String> allowedFields, String[] indexes,  int page) {
 		
 		boolean isValidQuery = false;
 		
@@ -70,13 +73,12 @@ public class Service {
 				
 				String field = entry.getKey();
 				String value = entry.getValue();
-
-				
+			
 				query.should(QueryBuilders.matchQuery(field, value).fuzziness("AUTO"));	
 			}
 
 		}
-		
+
 		
 		if(isValidQuery)
 			return executeQuery(query, indexes, page);
@@ -84,7 +86,29 @@ public class Service {
 			return null;
 
 		
-	}
+	}*/
 	
-	
+	public BoolQueryBuilder advanced(Map<String, String> params, ArrayList<String> allowedFields, BoolQueryBuilder query) {	
+			
+		BoolQueryBuilder local_query = QueryBuilders.boolQuery();
+		BoolQueryBuilder inner_query = QueryBuilders.boolQuery();
+		
+			for(Map.Entry<String, String> entry : params.entrySet())
+			{
+				if(allowedFields.contains(entry.getKey())) {
+					
+					String field = entry.getKey();
+					String value = entry.getValue();
+					
+					inner_query.should(QueryBuilders.matchQuery(field, value).fuzziness("AUTO"));
+					inner_query.should(QueryBuilders.matchQuery(field, value).boost(1.5f));	
+					
+					local_query.must(inner_query);
+				}
+			}
+			
+			query.should(local_query);
+				
+			return query;				
+		}	
 }

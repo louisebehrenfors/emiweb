@@ -1,4 +1,4 @@
-package se.emiweb.search.controller;
+/*package se.emiweb.search.controller;
 import java.util.Map;
 
 import org.elasticsearch.client.Client;
@@ -56,4 +56,4 @@ public class UsmgbgController {
 		pageNumber = new validatePage().check(page);
 		return service.likegoogle(search, Usmgbg.getSearchFields(), new String[]{"usmgbg_index"}, pageNumber);	
 	}
-}
+}*/

@@ -17,4 +17,11 @@ public class Usmgbg {
 		String[] fields = new String[] {"Source", "Name", "Profession", "Country"};
 		return new ArrayList<String>(Arrays.asList(fields));
 	}
+	
+	public static ArrayList<String> getNameFields(){
+		String[] name_fields = new String[] { "Name" };	
+		return new ArrayList<String>(Arrays.asList(name_fields));
+	}
+	
+	
 }

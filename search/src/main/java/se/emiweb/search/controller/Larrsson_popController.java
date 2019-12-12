@@ -1,4 +1,4 @@
-package se.emiweb.search.controller;
+/*package se.emiweb.search.controller;
 import java.util.Map;
 
 import org.elasticsearch.client.Client;
@@ -56,4 +56,4 @@ public class Larrsson_popController {
     	        
 		return service.likegoogle(search, Larsson_pop.getSearchFields(), new String[]{"larsson_pop_index"}, pageNumber);	
 	}
-}
+}*/
