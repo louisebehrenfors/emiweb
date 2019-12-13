@@ -1,8 +1,6 @@
 package se.emiweb.search.controller;
 
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -13,6 +11,7 @@ import org.elasticsearch.search.SearchHits;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,8 +22,8 @@ import se.emiweb.search.service.Service;
 import se.emiweb.search.service.validatePage;
 
 @RestController
-@RequestMapping("search/allindexes")
-public class allIndexes {
+@RequestMapping("search/specific/")
+public class SpecificController {
 	
 	@Autowired
 	Client client;
@@ -36,9 +35,9 @@ public class allIndexes {
 	private static String[] allIndexes = new Generator().generateIndexList();
 	
 	@CrossOrigin
-	@GetMapping("/advanced")
-	public SearchHits advancedSearch(@RequestParam(required = false) Map<String, String> params) {
-		
+	@GetMapping("{index}/advanced")
+	public SearchHits advancedSearch(@PathVariable String index, @RequestParam(required = false) Map<String, String> params) {
+
 		Service service = new Service(client);
 		BoolQueryBuilder query = QueryBuilders.boolQuery();
 		
@@ -49,24 +48,28 @@ public class allIndexes {
 		
 		for (Entry<String, ArrayList<String>> entry : IndexMap.indexmap.entrySet()) {
 		    query = service.advanced(params, entry.getValue(), query);
-			
-			System.out.println(entry.getKey() + ":" + entry.getValue().toString());
 		}
         
-		String [] indexes = {"usmgbg_index", "larsson_pop_index"};
-		return service.executeQuery(query, indexes,  pageNumber);
+		return service.executeQuery(query, pageNumber, index);
 	}
-
 	
 	@CrossOrigin
-	@GetMapping("/likegoogle")
-	public SearchHits findByAllIndexes( @RequestParam(required = false) String search,
+	@GetMapping("{index}/likegoogle")
+	public SearchHits findByAllIndexes( @PathVariable String index,
+										@RequestParam(required = false) String search,
 										@RequestParam(defaultValue = "0") String page	) {
 		
 		Service service = new Service(client);
 		pageNumber = new validatePage().check(page);     
-		return service.likegoogle(search, allFields, allIndexes, pageNumber);	
+		return service.likegoogle(search, allFields, pageNumber, index);	
 	}
 	
-	
+	@CrossOrigin
+	@GetMapping("{index}/byid")
+	public SearchHits findById( @PathVariable String index,
+								@RequestParam(required = true) String Id) {
+		
+		Service service = new Service(client);
+		return service.getById(Id, index);
+	}
 }

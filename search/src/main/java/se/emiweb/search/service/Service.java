@@ -25,7 +25,7 @@ public class Service {
 		
 	}
 	
-	public SearchHits executeQuery(QueryBuilder query, String[] indexes, int page) {
+	public SearchHits executeQuery(QueryBuilder query, int page, String... indexes) {
 		int pageSize = 10;
 		
 		SearchResponse response = client.prepareSearch(indexes)
@@ -38,7 +38,7 @@ public class Service {
 		
 	}
 	
-	public SearchHits likegoogle(String search, ArrayList<String>  fields, String[] indexes, int page) {
+	public SearchHits likegoogle(String search, ArrayList<String>  fields, int page, String... indexes) {
 		String[] fieldsAsArray = fields.toArray(new String[fields.size()]);
 		
         QueryBuilder query = QueryBuilders.boolQuery()
@@ -57,7 +57,7 @@ public class Service {
         
 
 		
-		return executeQuery(query, indexes, page);
+		return executeQuery(query, page, indexes);
 	}
 	
 	
@@ -75,60 +75,22 @@ public class Service {
 				String field = entry.getKey();
 				String value = entry.getValue();
 				
-				System.out.println(value + " " + field);
-				
 				local_query.must(QueryBuilders.boolQuery().should(QueryBuilders.matchQuery(field, value).fuzziness("AUTO"))
                         								  .should(QueryBuilders.matchQuery(field, value).boost(1.5f)));
 				
 			}
-			
-		
-		
+
 		}
 		
-
-	
 			return query.should(local_query);
 
 		
 	}
 	
-	
-	/*
-		public SearchHits advanced(Map<String, String> params, ArrayList<String> allowedFields, String[] indexes,  int page) {
-		
-		boolean isValidQuery = false;
-		
+	public SearchHits getById(String id, String index) {
 		BoolQueryBuilder query = QueryBuilders.boolQuery();
-		
-		for(Map.Entry<String, String> entry : params.entrySet())
-		{
-			if(allowedFields.contains(entry.getKey())) {
-				
-				isValidQuery = true;
-				
-				String field = entry.getKey();
-				String value = entry.getValue();
-				
-				System.out.println(value + " " + field);
-				
-				query.should(QueryBuilders.matchQuery(field, value).fuzziness("AUTO"));	
-				
-			}
-		
-		}
-		
-
-		
-		
-		if(isValidQuery)
-			return executeQuery(query, indexes, page);
-		else
-			return null;
-
-		
+		query.must(QueryBuilders.matchQuery("Id", id));
+		return executeQuery(query, 0, index);
 	}
-	 
-	*/
 	
 }
