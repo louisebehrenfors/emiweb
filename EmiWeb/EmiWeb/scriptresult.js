@@ -39,7 +39,7 @@ $( document ).ready(function() {
   */
   document.getElementById("headerSearch").innerHTML = "Alla sökresultat för <q>"+ bla+"</q>";
             $.ajax({
-                url: "http://192.168.137.211:8080/search/allindexes/"+advSearchVariable+bla,
+                url: "http://localhost:8080/search/allindexes/"+advSearchVariable+bla,
                 contentType: "application/json",
                 dataType: 'json',
                 success: function(result){

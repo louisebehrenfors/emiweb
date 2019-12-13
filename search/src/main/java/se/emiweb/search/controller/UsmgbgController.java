@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import se.emiweb.search.model.Larsson_pop;
 import se.emiweb.search.model.Usmgbg;
 import se.emiweb.search.repository.UsmgbgRepository;
-import se.emiweb.search.service.NameExtractor;
 import se.emiweb.search.service.Service;
 import se.emiweb.search.service.validatePage;
 
@@ -30,8 +29,6 @@ public class UsmgbgController {
 	@Autowired
 	Client client;
 	
-	NameExtractor nameExtractor = new NameExtractor();
-	
 	int pageNumber = 0;
 	
 	@CrossOrigin
@@ -39,7 +36,6 @@ public class UsmgbgController {
 	public SearchHits advancedSearch(@RequestParam(required = false) Map<String, String> params) {
 		
 		Service service = new Service(client);
-		nameExtractor.insertNameToMap(params);
 		
         if(params.containsKey("page")){
         	pageNumber = new validatePage().check(params.get("page"));

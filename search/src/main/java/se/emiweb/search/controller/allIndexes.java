@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import se.emiweb.search.service.Generator;
 import se.emiweb.search.service.IndexMap;
-import se.emiweb.search.service.NameExtractor;
 import se.emiweb.search.service.Service;
 import se.emiweb.search.service.validatePage;
 
@@ -29,8 +28,7 @@ public class allIndexes {
 	
 	@Autowired
 	Client client;
-	
-	NameExtractor nameExtractor = new NameExtractor();
+
 	
 	private int pageNumber = 0;
 	
