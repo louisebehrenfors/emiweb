@@ -11,10 +11,10 @@ public class Usmgbg {
 
 	@Id
 	private String ID;
-	private String Source, Name, Profession, Country, FileName, LastModified, OwnerID;
+	private String Source, FirstName, LastName, Profession, Country, FileName, LastModified, OwnerID;
 	
 	public static ArrayList<String> getSearchFields() {
-		String[] fields = new String[] {"Source", "Name", "Profession", "Country"};
+		String[] fields = new String[] {"Source", "FirstName", "LastName", "Profession", "Country"};
 		return new ArrayList<String>(Arrays.asList(fields));
 	}
 }

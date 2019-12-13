@@ -2,6 +2,8 @@ package se.emiweb.search.controller;
 import java.util.Map;
 
 import org.elasticsearch.client.Client;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHits;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import se.emiweb.search.model.Larsson_pop;
 import se.emiweb.search.model.Usmgbg;
 import se.emiweb.search.repository.UsmgbgRepository;
 import se.emiweb.search.service.NameExtractor;
@@ -20,7 +23,7 @@ import se.emiweb.search.service.validatePage;
 @RestController
 @RequestMapping("/search/usmgbg")
 public class UsmgbgController {
-	
+
 	@Autowired
 	UsmgbgRepository repository;
 	
@@ -43,8 +46,14 @@ public class UsmgbgController {
         	params.remove("page");
         }
         
-
-		return service.advanced(params, Usmgbg.getSearchFields(), new String[]{"usmgbg_index"} , pageNumber);
+        BoolQueryBuilder query = QueryBuilders.boolQuery();
+        query = service.advanced(params, Usmgbg.getSearchFields(), query);
+        
+        String [] indexes = {"usmgbg_index"};
+        
+		return service.executeQuery(query, indexes, pageNumber);
+        
+        
 	}
 	
 	@CrossOrigin

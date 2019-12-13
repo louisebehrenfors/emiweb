@@ -26,4 +26,17 @@ public class NameExtractor {
 		
 		return Name;
 	}
+	
+	public void insertSakaNameToMap(Map<String, String> params) {
+		String LastName1 = "";
+		String LastName2 = "";
+		
+		if(params.containsKey("LastName")) {
+			if(params.get("LastName").matches("\\S+")) {
+				String[] splited = params.get("LastName").split("\\s+");
+				
+			}
+		}
+		
+	}
 }

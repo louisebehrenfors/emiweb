@@ -2,6 +2,8 @@ package se.emiweb.search.controller;
 import java.util.Map;
 
 import org.elasticsearch.client.Client;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHits;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
@@ -40,8 +42,12 @@ public class Larrsson_popController {
         	pageNumber = new validatePage().check(params.get("page"));
         	params.remove("page");
         }
-		
-		return service.advanced(params, Larsson_pop.getSearchFields(), new String[]{"larsson_pop_index"} , pageNumber);
+        BoolQueryBuilder query = QueryBuilders.boolQuery();
+        query = service.advanced(params, Larsson_pop.getSearchFields(), query);
+        
+        String [] indexes = {"larsson_pop_index"};
+        
+		return service.executeQuery(query, indexes, pageNumber);
 	}
 	
 	@CrossOrigin

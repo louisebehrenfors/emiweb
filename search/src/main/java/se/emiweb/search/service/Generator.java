@@ -3,6 +3,7 @@ package se.emiweb.search.service;
 import java.util.ArrayList;
 
 import se.emiweb.search.model.Larsson_pop;
+import se.emiweb.search.model.Saka;
 import se.emiweb.search.model.Usmgbg;
 
 public class Generator {
@@ -13,6 +14,7 @@ public class Generator {
 		
 		join(all_fields, Usmgbg.getSearchFields());
 		join(all_fields, Larsson_pop.getSearchFields());
+		join(all_fields, Saka.getSearchFields());
 				
 		return all_fields;
 	}
@@ -26,6 +28,6 @@ public class Generator {
 	}
 	
 	public String[] generateIndexList(){
-		return new String[]{"usmgbg_index", "larsson_pop_index"};
+		return new String[]{"usmgbg_index", "larsson_pop_index", "saka_index"};
 	}
 }
