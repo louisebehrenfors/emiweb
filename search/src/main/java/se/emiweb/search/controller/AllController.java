@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import se.emiweb.search.service.Generator;
 import se.emiweb.search.service.IndexMap;
+import se.emiweb.search.service.Index_Names;
 import se.emiweb.search.service.Service;
 import se.emiweb.search.service.validatePage;
 
@@ -33,7 +34,6 @@ public class AllController {
 	private int pageNumber = 0;
 	
 	private static ArrayList<String> allFields = new Generator().generateFieldList();
-	private static String[] allIndexes = new Generator().generateIndexList();
 	
 	@CrossOrigin
 	@GetMapping("/advanced")
@@ -63,7 +63,7 @@ public class AllController {
 		
 		Service service = new Service(client);
 		pageNumber = new validatePage().check(page);     
-		return service.likegoogle(search, allFields, pageNumber, allIndexes);	
+		return service.likegoogle(search, allFields, pageNumber, Index_Names.indices);	
 	}
 	
 	

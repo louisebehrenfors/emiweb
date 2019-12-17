@@ -32,7 +32,6 @@ public class SpecificController {
 	private int pageNumber = 0;
 	
 	private static ArrayList<String> allFields = new Generator().generateFieldList();
-	private static String[] allIndexes = new Generator().generateIndexList();
 	
 	@CrossOrigin
 	@GetMapping("{index}/advanced")
