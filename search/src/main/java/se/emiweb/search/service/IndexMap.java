@@ -3,19 +3,27 @@ package se.emiweb.search.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
-import se.emiweb.search.model.Larsson_pop;
-import se.emiweb.search.model.Usmgbg;
+import se.emiweb.search.model.*;
 
-public class IndexMap {
+public class IndexMap {	
+	public static Map<String, ArrayList<String>> IndexMap;
 	
-	public static Map<String, ArrayList<String>>indexmap;
-	
-	static {
-		indexmap = new HashMap<String, ArrayList<String>>();
-		indexmap.put("usmgbg_index", Usmgbg.getSearchFields());
-		indexmap.put("Larsson_pop_index", Larsson_pop.getSearchFields());
+	static 
+	{
+		IndexMap = new HashMap<String, ArrayList<String>>();
+		IndexMap.put(Larsson_pop.getIndexName(),Larsson_pop.getSearchFields());
+		IndexMap.put(Saka.getIndexName(),Saka.getSearchFields());
+		IndexMap.put(Usmgbg.getIndexName(),Usmgbg.getSearchFields());
 	}
 	
-	
+	public ArrayList<String> getAllFields()
+	{
+		ArrayList<String> fields = new ArrayList<String>();
+		for (Entry<String, ArrayList<String>> entry : IndexMap.entrySet()) {
+		    fields.addAll(entry.getValue());
+		}		
+		return fields;
+	}
 }

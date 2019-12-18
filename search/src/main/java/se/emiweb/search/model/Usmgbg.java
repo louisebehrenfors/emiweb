@@ -6,6 +6,8 @@ import java.util.Arrays;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import se.emiweb.search.service.IndexMap;
+
 @Document(indexName="usmgbg_index", type="usmgbg_type")
 public class Usmgbg {
 
@@ -14,7 +16,10 @@ public class Usmgbg {
 	private String Source, FirstName, LastName, Profession, Country, FileName, LastModified, OwnerID;
 	
 	public static ArrayList<String> getSearchFields() {
-		String[] fields = new String[] {"Source", "FirstName", "LastName", "Profession", "Country"};
-		return new ArrayList<String>(Arrays.asList(fields));
+		return new ArrayList<>(Arrays.asList("Source", "FirstName", "LastName", "Profession", "Country"));
+	}
+	
+	public static String getIndexName(){
+		return "usmgbg_index";
 	}
 }

@@ -6,6 +6,8 @@ import java.util.Arrays;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import se.emiweb.search.service.IndexMap;
+
 @Document(indexName="saka_index", type="saka_type")
 public class Saka {
 	
@@ -15,8 +17,10 @@ public class Saka {
 
 	
 	public static ArrayList<String> getSearchFields() {
-		String[] fields = new String[] {"LastName", "LastName2", "FirstName", "Gender", "BirthDate"};
-		return new ArrayList<String>(Arrays.asList(fields));
+		return new ArrayList<>(Arrays.asList("LastName", "LastName2", "FirstName", "Gender", "BirthDate"));
 	}
-
+	
+	public static String getIndexName(){
+		return "saka_index";
+	}
 }

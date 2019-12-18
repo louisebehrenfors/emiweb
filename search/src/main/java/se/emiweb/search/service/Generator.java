@@ -1,4 +1,4 @@
-package se.emiweb.search.service;
+/*package se.emiweb.search.service;
 
 import java.util.ArrayList;
 
@@ -30,4 +30,4 @@ public class Generator {
 	public String[] generateIndexList(){
 		return new String[]{"usmgbg_index", "larsson_pop_index", "saka_index"};
 	}
-}
+}*/
