@@ -21,6 +21,7 @@ public class Larsson_pop{
 		return new ArrayList<>(Arrays.asList("LastName", "FirstName", "Profession", "HomeLocation", "HomeParish", "HomeProvince", "LetterDate", "Notes"));
 	}
 	
+	
 	public static String getIndexName(){
 		return "larsson_pop_index";
 	}

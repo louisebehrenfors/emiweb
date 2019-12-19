@@ -1,5 +1,6 @@
 package se.emiweb.search.controller;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -61,8 +62,7 @@ public class SpecificController {
 	@CrossOrigin
 	@GetMapping("{index}/byid")
 	public SearchHits findById( @PathVariable String index,
-								@RequestParam(required = true) String Id) {
-		
+								@RequestParam(required = true) String Id) throws ClassNotFoundException{
 		Service service = new Service(client);
 		return service.getById(Id, index);
 	}

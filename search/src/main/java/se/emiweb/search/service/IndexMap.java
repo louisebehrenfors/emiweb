@@ -21,9 +21,14 @@ public class IndexMap {
 	public ArrayList<String> getAllFields()
 	{
 		ArrayList<String> fields = new ArrayList<String>();
-		for (Entry<String, ArrayList<String>> entry : IndexMap.entrySet()) {
-		    fields.addAll(entry.getValue());
+		for (Entry<String, ArrayList<String>> entry : IndexMap.entrySet()) {	    
+		    for (String field : entry.getValue()){
+		    	   if (!fields.contains(field))
+		    		   fields.add(field);
+		    	}
 		}		
+		
+		System.out.println(fields.toString());
 		return fields;
 	}
 }

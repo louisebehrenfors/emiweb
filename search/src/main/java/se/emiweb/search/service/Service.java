@@ -40,6 +40,8 @@ public class Service {
 	
 	public SearchHits likegoogle(String search, ArrayList<String>  fields, int page, String... indexes) {
 		String[] fieldsAsArray = fields.toArray(new String[fields.size()]);
+		fields.remove("*Date");
+		
 		
         QueryBuilder query = QueryBuilders.boolQuery()
         		.should(QueryBuilders.multiMatchQuery(search, fieldsAsArray)
