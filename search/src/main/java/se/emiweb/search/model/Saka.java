@@ -17,7 +17,7 @@ public class Saka {
 
 	
 	public static ArrayList<String> getSearchFields() {
-		return new ArrayList<>(Arrays.asList("LastName", "LastName2", "FirstName", "Gender", "BirthDate"));
+		return new ArrayList<>(Arrays.asList("LastName", "FirstName", "Gender", "BirthDate"));
 	}
 	
 	public static String getIndexName(){

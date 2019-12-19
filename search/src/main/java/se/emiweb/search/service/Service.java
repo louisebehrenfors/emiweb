@@ -1,7 +1,10 @@
 package se.emiweb.search.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -9,6 +12,7 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.FuzzyQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -33,14 +37,16 @@ public class Service {
 		        .setQuery(query)
 		        .setFrom(page*pageSize).setSize(pageSize).setExplain(true)
 		        .get();	
-		
+		System.out.println(query.toString());
 		return response.getHits();
 		
 	}
 	
 	public SearchHits likegoogle(String search, ArrayList<String>  fields, int page, String... indexes) {
+		
+		fields.remove("BirthDate");
 		String[] fieldsAsArray = fields.toArray(new String[fields.size()]);
-		fields.remove("*Date");
+		
 		
 		
         QueryBuilder query = QueryBuilders.boolQuery()
@@ -66,8 +72,30 @@ public class Service {
 	
 	public BoolQueryBuilder advanced(Map<String, String> params, ArrayList<String> allowedFields, BoolQueryBuilder query) {
 		
-
+		
+	
 		BoolQueryBuilder local_query = QueryBuilders.boolQuery();
+		/*
+		String BirthDay = "";
+		if (params.containsKey("BirthDate") && allowedFields.contains("BirthDate")){
+			BirthDay = params.get("BirthDate");
+			
+			
+			params.remove("BirthDate");	
+			
+			local_query.must(QueryBuilders.rangeQuery("BirthDate")
+					.from("1851-05-17||/D")
+					.to("1851-05-19||/D")
+					.includeLower(true)
+					.includeLower(false));
+
+		}
+		else if(params.containsKey("BirthDate") && !allowedFields.contains("BirthDate")){
+			params.remove("BirthDate");	
+		}
+		*/
+		
+
 		
 		for(Map.Entry<String, String> entry : params.entrySet())
 		{
@@ -84,7 +112,9 @@ public class Service {
 
 		}
 		
-			return query.should(local_query);
+		
+		
+		return query.should(local_query);
 
 		
 	}

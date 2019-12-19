@@ -24,9 +24,9 @@ public class EmiWebConfiguration {
 		
 		
 		Settings settings = Settings.builder()
-		        .put("cluster.name", "elasticsearch")
+		        .put("cluster.name", "EmiWeb_Cluster")
 		        .put("client.transport.sniff", true)
-		        .put("node.name", "first_node")
+		        .put("node.name", "EmiWeb")
 		        .build();
 		
 		TransportClient client = new PreBuiltTransportClient(settings)

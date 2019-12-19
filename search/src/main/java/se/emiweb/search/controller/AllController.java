@@ -48,9 +48,8 @@ public class AllController {
 		for (Entry<String, ArrayList<String>> entry : IndexMap.IndexMap.entrySet()) {
 		    query = service.advanced(params, entry.getValue(), query);
 		}
-        
-		String [] indexes = {"usmgbg_index", "larsson_pop_index"};
-		return service.executeQuery(query, pageNumber, indexes);
+
+		return service.executeQuery(query, pageNumber, IndexMap.IndexMap.keySet().toArray(new String[0]));
 	}
 
 	
