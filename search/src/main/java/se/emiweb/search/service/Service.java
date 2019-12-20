@@ -75,33 +75,52 @@ public class Service {
 		
 	
 		BoolQueryBuilder local_query = QueryBuilders.boolQuery();
-		/*
-		String BirthDay = "";
+		
+		System.out.println("allowed fields: " + allowedFields);
+		System.out.println("keys: " + params.keySet());
+		
+		
+		Boolean flag = false;
+		
+		
+		
 		if (params.containsKey("BirthDate") && allowedFields.contains("BirthDate")){
-			BirthDay = params.get("BirthDate");
+			String min = params.get("BirthDate");
+			String max = params.get("BirthDate");
+			flag = true;
+			if(params.containsKey("BirthDateMax"))
+				max = params.get("BirthDateMax");
+			//BirthDay = params.get("BirthDate");
+			System.out.println("BirthDay: " + params.get("BirthDate"));
 			
-			
-			params.remove("BirthDate");	
+			//params.remove("BirthDate");	
 			
 			local_query.must(QueryBuilders.rangeQuery("BirthDate")
-					.from("1851-05-17||/D")
-					.to("1851-05-19||/D")
-					.includeLower(true)
-					.includeLower(false));
+					.gte(min)
+					.lte(max));
+			
 
 		}
-		else if(params.containsKey("BirthDate") && !allowedFields.contains("BirthDate")){
-			params.remove("BirthDate");	
-		}
-		*/
 		
-
+		else if(params.containsKey("BirthDate")){
+			//params.remove("BirthDate");
+			System.out.println("retrun");
+			return query;
+		}
+		
+		
+		
+		
+		
+		
+		String bday = params.get("BirthDate");
+		//params.remove("BirthDate");
 		
 		for(Map.Entry<String, String> entry : params.entrySet())
 		{
-			if(allowedFields.contains(entry.getKey())) {
-
-				
+			if(allowedFields.contains(entry.getKey()) && !entry.getKey().equals("BirthDate")) {
+				System.out.println("Result: " + entry.getKey());
+				flag = true;
 				String field = entry.getKey();
 				String value = entry.getValue();
 				
@@ -112,10 +131,11 @@ public class Service {
 
 		}
 		
-		
-		
+		if(flag)
+		//params.put("BirthDate", bday);
 		return query.should(local_query);
-
+		else
+			return query;
 		
 	}
 	

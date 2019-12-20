@@ -41,9 +41,9 @@ public class SpecificController {
         	params.remove("page");
         }
 		
-		for (Entry<String, ArrayList<String>> entry : IndexMap.IndexMap.entrySet()) {
-		    query = service.advanced(params, entry.getValue(), query);
-		}
+		
+		query = service.advanced(params, IndexMap.IndexMap.get(index), query);
+		
         
 		return service.executeQuery(query, pageNumber, index);
 	}
