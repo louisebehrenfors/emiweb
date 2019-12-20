@@ -32,6 +32,9 @@ public class Service {
 	public SearchHits executeQuery(QueryBuilder query, int page, String... indexes) {
 		int pageSize = 10;
 		
+		if(query.equals(QueryBuilders.boolQuery())) {
+			return null;
+		}
 		SearchResponse response = client.prepareSearch(indexes)
 		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
 		        .setQuery(query)
@@ -76,6 +79,10 @@ public class Service {
 	
 		BoolQueryBuilder local_query = QueryBuilders.boolQuery();
 		
+		if(local_query.equals(QueryBuilders.boolQuery())) {
+			System.out.println("Vi är lika");
+		}
+		
 		System.out.println("allowed fields: " + allowedFields);
 		System.out.println("keys: " + params.keySet());
 		
@@ -107,9 +114,6 @@ public class Service {
 			System.out.println("retrun");
 			return query;
 		}
-		
-		
-		
 		
 		
 		
