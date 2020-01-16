@@ -24,22 +24,22 @@ else advSearchVariable = "advanced?";
 
 
 $( document ).ready(function() {
-  /*
+
   var hackbajs = document.getElementById("jsonfan").textContent;
   var jsonbajs = JSON.parse(hackbajs);
   console.log(jsonbajs);
   console.log(jsonbajs.hits.hits[0].sourceAsMap.FirstName);
 
   /*******TEST JSON***********/
-  /*
+  
   var number_of_hits = jsonbajs.hits.totalHits;
   var data = jsonbajs.hits.hits;
   theFilterViewFunction(data,number_of_hits);
   document.getElementById("headerSearch").innerHTML = "Alla sökresultat för gris";
-  */
+  /*
   document.getElementById("headerSearch").innerHTML = "Alla sökresultat för <q>"+ bla+"</q>";
             $.ajax({
-                url: "http://localhost:8080/search/allindexes/"+advSearchVariable+bla,
+                url: "http://192.168.137.211:8080/search/allindexes/"+advSearchVariable+bla,
                 contentType: "application/json",
                 dataType: 'json',
                 success: function(result){
@@ -49,7 +49,7 @@ $( document ).ready(function() {
                   var resultdis = JSON.stringify(result);
                     console.log(result);
                 }
-            })
+            })*/
     });
 
 

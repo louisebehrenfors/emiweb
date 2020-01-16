@@ -6,7 +6,7 @@
    <link rel="stylesheet" href="styles.css">
    <link rel="shortcut icon" href="emiweb.ico">
    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-   <script src="script2.js"></script>
+   <script src="script-index.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Raleway:400,600&display=swap" rel="stylesheet">
   <title>EmiWeb</title>
 </head>
@@ -14,7 +14,7 @@
 
 <div class ="container">
     <div class ="header">
-      <h1> EmiWeb </h1>
+      <a href="index.html"><h1> EmiWeb </h1></a>
     </div>
 
     <div id ="frontSideNav" class ="sidenav">
@@ -32,30 +32,43 @@
 
     <div class ="content">
 
-      <div class="allSearchForm">
-<h2>Sök i alla arkiv</h2>
-        <div id="formDiv">
-          <form  name="allSearchForms" action="result.html" method="GET" onsubmit="googleSearchFunction()">
-              <input type ="search" autocomplete="off" id="googleSearch" placeholder="Sök på förnamn, efternamn, födelseår, församling..." name ="allSearchInput">
-              <button onclick="allSearchFunction" type="submit" class="button buttonSearch"> Sök </button>
+      <div class="index-d-search">
+        <h2>Sök i alla arkiv</h2>
+        <div id="index-d-forms">
+          <!--<form  name="allSearchForms" action="result.html" method="GET" onsubmit="googleSearchFunction()"> -->
+          <form  name="allSearchForms">
+              <input type ="text"  onsubmit="googleSearchFunction()" autocomplete="off" id="index-input-googleSearch" placeholder="Sök på förnamn, efternamn, födelseår, församling...">
+              <button onclick="googleSearchFunction()" type="button" id="button_google" class="button buttonSearch"> Sök </button>
             </form>
             <button class="button AdvancedSearch" onclick="openAdvancedSearch()"> Avancerad sökning &#8595; </button>
         </div>
-        <div id="AdvancedMenu">
-          <h3> Sök med avancerad sökning </h3>
+        <div id="index-d-advanced">
+          <h2> Sök med avancerad sökning </h2>
           <form  name="advancedSearchForm" action="result.html" method="GET" onsubmit="AdvancedSearchFunction()">
-              <input type ="search" autocomplete="off" id="advSearch" placeholder="Förnamn..." name ="FirstName"><br>
-              <input type ="search" autocomplete="off" id="advSearch" placeholder="Efternamn..." name ="LastName"><br>
-              <input type ="search" autocomplete="off" id="advSearch" placeholder="Födelseår..." name ="DateBirth"><br>
-              <button onclick="allSearchFunction()" type="submit" class="button buttonSearch"> Sök med avancerad sökning </button>
+              <input type ="text" autocomplete="off" id="index-adv-search-firstName" placeholder="Förnamn..." name ="FirstName"><br>
+              <input type ="text" autocomplete="off" id="index-adv-search-LastName" placeholder="Efternamn..." name ="LastName"><br>
+              <input type ="text" autocomplete="off" id="index-adv-search-DateBirth" placeholder="Födelseår..." name ="DateBirth"><br>
+              <button onclick="AdvancedSearchFunction()" type="button" class="button buttonSearch"> Sök med avancerad sökning </button>
             </form>
         </div>
       </div>
-      <div>
 
+      <div id ="index-d-result">
+        <h2 id="headerSearch"></h2>
+        <h5 id="number_of_hits_h5"></h5>
+        <ol id ="index-ol-result">
+        </ol>
+
+
+        <div id="index-d-result-page">
+          <button value="page-back" onclick="pageTurnerFunction(this.value)" class="index-page-turner">&#8249;</button>
+          <p id="index-p-page"></p>
+          <button value="page-forward" onclick="pageTurnerFunction(this.value)" class="index-page-turner">&#8250;</button>
+        </div>
+      </div>
 
       <div class="specficSearch">
-<h2>Gå direkt till ett specifikt arkiv</h2>
+        <h2>Gå direkt till ett specifikt arkiv</h2>
         <button class="button buttonArchive" onclick="showListFunction('showNews')">Nyheter</button> <br>
           <ul id= "showNews">
             <li>Svenskamerikanska kyrkoarkivet, ca 560.000 poster</li>
@@ -112,8 +125,7 @@
       </div>
 
   </div>
-</div>
-
+  </div>
   <footer class ="myFooter">
     <h6> © EmiWeb 2007-2017 </h6>
   </footer>

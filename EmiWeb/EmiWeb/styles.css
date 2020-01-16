@@ -1,5 +1,9 @@
 /*comment stylesheet*/
-
+/*
+F7F9F9
+bed8d4
+/f7f9f9-bed8d4-78d5d7-63d2ff-2081c3
+ */
 /*#0B2250*/
 *{
     margin: 0;
@@ -12,22 +16,7 @@ body,html {
   display: flex;
   flex-direction: column;
 }
-/*********** ALL DIVS *****************/
-
-#AdvancedMenu{
-  display: none;
-  text-align: center;
-  margin-bottom: 2vh;
-  min-height: 150px;
-  margin-top: -10px;
-}
-#formDiv{
-  width: 100%;
-  min-height: 150px;
-  position: relative;
-  vertical-align: middle;
-  text-align: center;
-}
+/************************** GENERAL DIVS *************************************/
 
 .header {
   background-image:url("header.jpg");
@@ -36,6 +25,27 @@ body,html {
   height: 10vw;
   position:absolute;
 }
+.containerResult{
+  margin-top: 12vw;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 20px;
+}
+
+
+footer{
+  width:100%;
+  height:20px;
+  background-color: black;
+  margin-top: 30px;
+  color: white;
+  text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}index-d-search
+
+/************************** ARChHIVE DIVS *************************************/
 .contentArchive{
   margin-top: 12vw;
   margin-left: 50px;
@@ -43,6 +53,8 @@ body,html {
   margin-bottom: 20px;
   text-align: justify;
 }
+
+/************************** HELP DIVS *****************************************/
 
 .container{
   margin-top: 10vw;
@@ -55,7 +67,7 @@ body,html {
 .content{
   margin-top: 12vw;
 }
-.helpcontainer{
+.help-d-container{
   margin-top:12vw;
   margin-left:50px;
   margin-right: 50px;
@@ -79,15 +91,66 @@ body,html {
   margin-top:1vw;
   text-align: justify;
 }
-.upperMenuSearch{
-  display: table;
+.containerResult{
+  margin-top: 12vw;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 20px;
+}
+
+#results{
+  background-color:#ededed;
+  width:80%;
+  height:50%;
   margin: 0 auto;
+  border-radius: 15px;
+  border: 0.5px solid #a3a3a3;
+  padding-top: 3vh;
+  padding-left: 3vw;
+  padding-bottom: 3vh;
+  padding-right: 3vw;
+  display: table;
+  margin-bottom: 4vh;
+  margin-top: 1vh;
+  overflow: auto;
+}
+/*************************INDEX****************************************/
+#index-d-result{
+  min-height: 150px;
+  width:74vw;
+  height: 50%;
+  display: none;
+  background-color: #ededed;
+  border-radius: 15px;
+  border: 0.5px solid #a3a3a3;
+  margin: 0 auto;
+  position: relative;
   margin-top: 1vh;
   margin-bottom: 1vh;
+  overflow:auto;
+  vertical-align: middle;
+  padding-top: 3vh;
+  padding-left: 3vw;
+  padding-right: 3vw;
 }
-.allSearchForm{
+
+#index-d-advanced{
+  display: none;
+  text-align: center;
+  margin-bottom: 2vh;
+  min-height: 150px;
+  margin-top: -10px;
+}
+#index-d-forms{
+  width: 100%;
+  min-height: 150px;
+  position: relative;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.index-d-search{
   /*height:200px;*/
-  background-color: red;
   min-height: 150px;
   width:74vw;
   height: 100%;
@@ -121,42 +184,111 @@ body,html {
   overflow: auto;
   display: table;
 }
-
-.containerResult{
-  margin-top: 12vw;
-  margin-left: 50px;
-  margin-right: 50px;
-  margin-bottom: 20px;
-}
-
-#results{
-  background-color:#ededed;
-  width:80%;
-  height:50%;
-  margin: 0 auto;
-  border-radius: 15px;
-  border: 0.5px solid #a3a3a3;
-  padding-top: 3vh;
-  padding-left: 3vw;
-  padding-bottom: 3vh;
-  padding-right: 3vw;
-  display: table;
-  margin-bottom: 4vh;
-  margin-top: 1vh;
-  overflow: auto;
-}
-footer{
+#index-ol-result{
+  padding: 0;
+  list-style-type: none;
   width:100%;
-  height:20px;
-  background-color: black;
-  margin-top: 30px;
-  color: white;
+  display: table;
+}
+#index-d-result-page{
+  display: none;
+  margin: 0 auto;
+  margin-bottom: 10px;
+
+}
+.index-page-turner{
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
   text-align: center;
-  position: fixed;
-  left: 0;
-  bottom: 0;
+}
+#index-p-page{
+  display: inline-block;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
+/******************END OF INDEX*****************************/
+
+/******************************* HELP ****************************************/
+
+
+  .help-d-container{
+    margin-top:10vw;
+    margin-left:25px;
+    margin-right: 25px;
+  }
+
+
+  #help-contact{
+    display: block;
+  }
+
+  .help-d-tab-contain{
+    display: flex;
+    position: relative;
+    background-color:#1abc9c;
+
+    height: 50%;
+  }
+
+  .tabs::before,
+  .tabs::after {
+    content: "";
+    display: table;
+  }
+  .tabs::after {
+    clear: both;
+  }
+
+  .help-d-tab{
+    width:100%;
+    float: left;
+  }
+
+  .tab-switch{
+    display: none;
+  }
+  .tab-label{
+    position: relative;
+    display: block;
+    cursor: pointer;
+    color:fff;
+    position: relative;
+    background:  #1abc9c;
+    border-right: 0.125rem solid #16a085;
+  }
+
+  .tab-label:hover{
+    transition: top 0.25s;
+  }
+
+  .tab-content{
+    position: absolute;
+    z-index: 1;
+    transition: all 0.35s;
+    opacity: 0;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .tab-switch:checked + .tab-label {
+    background: #fff;
+    color: #2c3e50;
+    border-bottom: 0;
+    border-right: 0.125rem solid #fff;
+    transition: all 0.35s;
+    z-index: 1;
+    top: -0.0625rem;
+  }
+  .tab-switch:checked + label + .tab-content {
+    z-index: 2;
+    opacity: 1;
+    transition: all 0.35s;
+  }
+
+
+/**************************** END OF HELP ************************************/
 /******** ALL TEXTS AND HEADERS ***********/
 
 h1 {
@@ -172,7 +304,7 @@ h1 {
 }
 
 h2{
-  font-family: 'Raleway', sans-serif;
+  font-family:'Raleway', sans-serif;
   color:black;
   text-align: center;
 
@@ -310,12 +442,9 @@ hr {
   background-color: #ededed;
   width: auto;
 }
-#turnaround{
-  -webkit-transform: rotate(-90deg);
-  -moz-transform: rotate(-90deg);
-}
+
 /******** STYLE THE INPUT FORM ***********/
-input[type=search] {
+input[type=text] {
   border: 1px solid #a3a3a3;
   height: 2vh;
   min-height: 30px;
@@ -431,11 +560,6 @@ a:hover{
     font-size: 1vw;
   }
 
-  .helpcontainer{
-    margin-top:10vw;
-    margin-left:25px;
-    margin-right: 25px;
-  }
 
   .containerResult{
     margin-top: 12vw;
@@ -452,73 +576,6 @@ a:hover{
   }
 }
 
-
-#help-contact{
-  display: block;
-}
-
-.tabsContain{
-  display: flex;
-  position: relative;
-  background-color:#1abc9c;
-
-  height: 50%;
-}
-
-.tabs::before,
-.tabs::after {
-  content: "";
-  display: table;
-}
-.tabs::after {
-  clear: both;
-}
-
-.tab{
-  width:100%;
-  float: left;
-}
-
-.tab-switch{
-  display: none;
-}
-.tab-label{
-  position: relative;
-  display: block;
-  cursor: pointer;
-  color:fff;
-  position: relative;
-  background:  #1abc9c;
-  border-right: 0.125rem solid #16a085;
-}
-
-.tab-label:hover{
-  transition: top 0.25s;
-}
-
-.tab-content{
-  position: absolute;
-  z-index: 1;
-  transition: all 0.35s;
-  opacity: 0;
-  overflow: hidden;
-  background: #fff;
-}
-
-.tab-switch:checked + .tab-label {
-  background: #fff;
-  color: #2c3e50;
-  border-bottom: 0;
-  border-right: 0.125rem solid #fff;
-  transition: all 0.35s;
-  z-index: 1;
-  top: -0.0625rem;
-}
-.tab-switch:checked + label + .tab-content {
-  z-index: 2;
-  opacity: 1;
-  transition: all 0.35s;
-}
 
 
 
@@ -632,7 +689,7 @@ td{
     font-size: 1vh;
   }
 
-  .helpcontainer{
+  .help-d-container{
     margin-top:10vw;
     margin-left:25px;
     margin-right: 25px;
@@ -657,8 +714,11 @@ td{
   }
 
   th{
-    font-family:'Raleway', sans-serif;
+    /*font-family:aktiv-grotesk,'Raleway', sans-serif;*/
     font-size: 10px;
+    font-family: aktiv-grotesk, sans-serif;
+    font-style: normal;
+    font-weight: 200;
   }
   td{
     font-family:'Raleway', sans-serif;
@@ -674,7 +734,7 @@ td{
 
 /***************** PROFILE ***********************/
 
-.personCont{
+#profile-d-content{
   background-color:#ededed;
   width:74vw;
   /*height:50vh;*/
